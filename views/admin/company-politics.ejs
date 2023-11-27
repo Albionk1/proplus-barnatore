@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--
+Author: Thana Dev 2023
+Product Name: Services
+-->
+<html lang="en">
+
+<!--begin::Head-->
+
+<head><!--Begin Meta links-->
+    <%- include ('includes/meta-links.ejs') %>
+        <!--End Meta links-->
+        <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+
+<body id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true"
+    data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true"
+    data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true"
+    data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
+    <!--begin::Theme mode setup on page load-->
+    <script>var defaultThemeMode = "light"; var themeMode; if (document.documentElement) { if (document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if (localStorage.getItem("data-bs-theme") !== null) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+    <!--end::Theme mode setup on page load-->
+    <!--begin::App-->
+    <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+        <!--begin::Page-->
+        <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+            <!--begin::Header-->
+            <%- include('./includes/header.ejs') %>
+                <!--end::Header-->
+                <!--begin::Wrapper-->
+                <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+                    <!--begin::Sidebar-->
+                    <%- include('./includes/sidebar.ejs') %>
+                        <!--end::Sidebar-->
+                        <!--begin::Main-->
+                        <div class="app-main flex-column flex-row-fluid mt-10" id="kt_app_main">
+                            <!--begin::Content wrapper-->
+                            <div class="d-flex flex-column flex-column-fluid">
+                                <!--begin::Content-->
+                                <div id="kt_app_content" class="app-content flex-column-fluid">
+                                    <!--begin::Content container-->
+                                    <div id="kt_app_content_container" class="app-container container-fluid">
+                                        <!--begin::Navs-->
+                                        <div class="card-toolbar mb-5 w-100">
+                                            <ul
+                                                class="nav nav-tabs nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-semibold flex-wrap">
+                                                <!--begin::Nav item-->
+                                                <li class="nav-item mt-2">
+                                                    <a class="nav-link text-active-white "
+                                                        href="/admin/company">Kompania</a>
+                                                </li>
+                                                <!--end::Nav item-->
+                                                <!--begin::Nav item-->
+                                                <li class="nav-item mt-2">
+                                                    <a class="nav-link text-active-warning"
+                                                        href="/admin/company-unit">Njësitë</a>
+                                                </li>
+                                                <!--end::Nav item-->
+                                                <!--begin::Nav item-->
+                                                <li class="nav-item mt-2">
+                                                    <a class="nav-link text-active-success active"
+                                                        href="/admin/company-politics">Politikat</a>
+                                                </li>
+                                                <!--end::Nav item-->
+                                            </ul>
+                                        </div>
+                                        <!--begin::Navs-->
+                                     
+                                        <!--begin::Card-->
+                                        <div class="card">
+                                            <!--begin::Card header-->
+                                            <div class="card-header border-0 pt-6">
+                                                <!--begin::Card title-->
+                                                <div class="card-title">
+                                                    <!--begin::Search-->
+                                                    <div class="d-flex align-items-center position-relative my-1">
+                                                        <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+                                                            <span class="path1"></span>
+                                                            <span class="path2"></span>
+                                                        </i>
+                                                        <input type="text" id="politic_table-search"
+                                                            class="form-control form-control-solid w-250px ps-13"
+                                                            placeholder="Kërko..." />
+                                                    </div>
+                                                    <!--end::Search-->
+                                                </div>
+                                                <!--begin::Card title-->
+                                            </div>
+                                            <!--end::Card header-->
+                                            <!--begin::Card body-->
+                                            <div class="card-body pt-0">
+                                                <div class="table-responsive">
+                                                    <!--begin::Table-->
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                        id="politic_table">
+                                                        <thead>
+                                                            <tr
+                                                                class="text-start text-gray-800 fw-bold fs-6 text-uppercase gs-0">
+                                                                <th class="w-10px">Nr </th>
+                                                                <th class="w-100px">Keybordi</th>
+                                                                <th class="w-100px">Mesazhi POS</th>
+                                                                <th class="w-100px">Mesazhi shumicë</th>
+                                                                <th class="w-100px">Shitje me minus</th>
+                                                                <th class="w-100px">Printeri fiskal</th>
+                                                                <th class="w-100px">Njësia</th>
+                                                                <th class="w-100px">Mesazh në faturë </th>
+                                                                <th class="w-10px text-center">Opsione</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="fw-semibold text-gray-700">
+                                                        </tbody>
+                                                    </table>
+                                                    <!--end::Table-->
+                                                </div>
+                                            </div>
+                                            <!--end::Card body-->
+                                        </div>
+                                        <!--end::Card-->
+                                    </div>
+                                    <!--end::Content container-->
+                                </div>
+                                <!--end::Content-->
+                            </div>
+                            <!--end::Content wrapper-->
+                            <!--begin::Footer-->
+                            <%- include('./includes/footer.ejs') %>
+                                <!--end::Footer-->
+                        </div>
+                        <!--end:::Main-->
+                </div>
+                <!--end::Wrapper-->
+        </div>
+        <!--end::Page-->
+    </div>
+    <!--end::App-->
+    <!--begin::Javascript-->
+    <%- include('./includes/script.ejs') %>
+        <!--end::Javascript-->
+        <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+        <!--begin::Custom Javascript(used for this page only)-->
+        <script src="/assets/js/utils.js"></script>
+        <script src="/assets/js/company/politics.js"></script>
+        <!--end::Javascript-->
+
+</body>
+<!--end::Body-->
+
+</html>

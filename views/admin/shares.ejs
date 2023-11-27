@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<!--
+Author: Thana Dev 2023
+Product Name: Services
+-->
+<html lang="en">
+<!--begin::Head-->
+
+<head>
+    <!--Begin Meta links-->
+    <%- include ('includes/meta-links.ejs') %>
+        <!--End Meta links-->
+        <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+
+<body onload="startClock()" id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true"
+    data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true"
+    data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true"
+    data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
+    <!--begin::Theme mode setup on page load-->
+
+    <!--end::Theme mode setup on page load-->
+    <!--begin::App-->
+    <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+        <!--begin::Page-->
+        <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+            <!--begin::Header-->
+            <%- include('./includes/header.ejs') %>
+                <!--end::Header-->
+                <!--begin::Wrapper-->
+                <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+                    <!--begin::Sidebar-->
+                    <%- include('./includes/sidebar.ejs') %>
+                        <!--end::Sidebar-->
+                        <!--begin::Content-->
+                        <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                            <!--begin::Post-->
+                            <div class="post d-flex flex-column-fluid" id="kt_post">
+                                <!--begin::Container-->
+                                <div id="kt_content_container" class="container-fluid">
+                                    <!--begin::Card body-->
+                                    <div class="row mt-7">
+                                        <div class="col-lg-7">
+                                            <form  id="addAction" class="">
+                                                <!--begin::Tab Content-->
+                                                <div class="tab-content">
+                                                    <!--begin::Tab panel-->
+                                                    <div class=" p-0 tab-pane fade show active">
+                                                        <!--begin::Content wrapper-->
+                                                        <div class="d-flex flex-column flex-column-fluid card">
+                                                            <!--begin::Card body-->
+                                                            <div class="card-body border-top pt-5">
+                                                                <!--begin::Input group-->
+                                                                <!--begin::Row-->
+                                                                <div class="row ">
+                                                                    <!--begin::Col-->
+                                                                    <div
+                                                                        class="col-xxl-3 col-xl-4 col-lg-6 col-md-3 col-sm-6">
+                                                                        <!--begin::Input group-->
+                                                                        <div class="d-flex flex-column fv-row">
+                                                                            <!--begin::Label-->
+                                                                            <label
+                                                                                class="fs-6 fw-semibold form-label mt-3">
+                                                                                <span>Startimi i datës</span>
+                                                                            </label>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <p id="start_time-error" class="text-danger mb-0 show-errors-action"></p>
+                                                                            <input class="form-control" name="start_time"
+                                                                                placeholder="Zgjedh datën"
+                                                                                id="kt_datepicker_1" />
+                                                                        </div>
+                                                                        <!--end::Input group-->
+                                                                    </div>
+                                                                    <!--end::Col-->
+                                                                    <!--begin::Col-->
+                                                                    <div
+                                                                        class="col-xxl-3 col-xl-4 col-lg-6 col-md-3 col-sm-6">
+                                                                        <!--begin::Input group-->
+                                                                        <div class="d-flex flex-column fv-row">
+                                                                            <!--begin::Label-->
+                                                                            <label
+                                                                                class="fs-6 fw-semibold form-label mt-3">
+                                                                                <span>Finish i datës</span>
+                                                                            </label>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input--> 
+                                                                            <p id="end_time-error" class="text-danger mb-0 show-errors-action"></p>
+
+                                                                            <input class="form-control" name="end_time"
+                                                                                placeholder="Zgjedh datën"
+                                                                                id="kt_datepicker_2" />
+                                                                        </div>
+                                                                        <!--end::Input group-->
+                                                                    </div>
+                                                                    <!--end::Col-->
+                                                                    <!--begin::Col-->
+                                                                    <div
+                                                                        class="col-xxl-3 col-xl-4 col-lg-6 col-md-3 col-sm-6">
+                                                                        <!--begin::Input group-->
+                                                                        <div class="d-flex flex-column fv-row">
+                                                                            <!--begin::Label-->
+                                                                            <label
+                                                                                class="fs-6 fw-semibold form-label mt-3">
+                                                                                <span>Njësia</span>
+                                                                            </label>
+                                                                            <!--end::Label-->
+                                                                            <p id="unit-error" class="text-danger mb-0 show-errors-action"></p>
+                                                                            <!--begin::Input-->
+                                                                            <select name="unit" id="unit" aria-label="Njësia"
+                                                                                data-control="select2"
+                                                                                data-placeholder="Njësia"
+                                                                                class="form-select mb-2">
+                                                                                <option></option>
+                                                                                <% for(let i =0;i<unit.length;i++){%>
+                                                                                    <option value="<%=unit[i]._id  %>"><%=unit[i].unit_name  %></option>
+                                                                                    <% } %>
+                                                                            </select>
+                                                                            <!--end::Input-->
+                                                                        </div>
+                                                                        <!--end::Input group-->
+                                                                    </div>
+                                                                    <!--end::Col-->
+                                                                    <!--begin::Col-->
+                                                                    <div
+                                                                        class="col-xxl-3 col-xl-4 col-lg-6 col-md-3 col-sm-6">
+                                                                        <!--begin::Input group-->
+                                                                        <div class="d-flex flex-column mb-7 fv-row">
+                                                                            <!--begin::Label-->
+                                                                            <label
+                                                                                class="fs-6 fw-semibold form-label mt-3">
+                                                                                <span>Përfituesit</span>
+                                                                            </label>
+                                                                            <!--end::Label-->
+                                                                            <p id="beneficiaries-error" class="text-danger mb-0 show-errors-action"></p>
+                                                                            <!--begin::Input-->
+                                                                            <select name="beneficiaries" id="beneficiaries"
+                                                                                aria-label="Përfituesit"
+                                                                                data-control="select2"
+                                                                                data-placeholder="Përfituesit"
+                                                                                class="form-select mb-2">
+                                                                                <option></option>
+                                                                                <option value="all">Të gjithë
+                                                                                </option>
+                                                                                <option value="card">Gift card
+                                                                                </option>
+                                                                            </select>
+                                                                            <!--end::Input-->
+                                                                        </div>
+                                                                        <!--end::Input group-->
+                                                                    </div>
+                                                                    <!--end::Col-->
+                                                                    <!--begin::Col-->
+                                                                    <div
+                                                                        class="col-xxl-3 col-xl-4 col-lg-6 col-md-3 col-sm-6 mt-xl-11 mt-xxl-3">
+                                                                        <!--begin::Actions-->
+                                                                        <div class=" d-flex justify-content-end">
+                                                                            <!--eshte button po e bana a tag per me direktu te faqja aksione add se sdisha ku me lan-->
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary w-100" id=""
+                                                                                style="white-space: nowrap;">Hap
+                                                                                aksionin</button>
+                                                                        </div>
+                                                                        <!--end::Actions-->
+                                                                    </div>
+                                                                    <!--end::Col-->
+                                                                </div>
+                                                                <!--end::Row-->
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Toolbar container-->
+                                                    </div>
+                                                    <!--end::Toolbar-->
+                                                </div>
+                                                <!--end::Content wrapper-->
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="card">
+                                                <h3 class="text-center fs-3 pt-3" style="text-decoration: underline;">
+                                                    Detaje rreth
+                                                    aksioneve
+                                                </h3>
+                                                <div class="card-body row">
+                                                    <!--begin::Col-->
+                                                    <div class="col-xl-4 col-lg-12 col-sm-6">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-7 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Numri i aksioneve:</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control" name="0" value="" id="show-total-actions"
+                                                                disabled />
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-xl-4 col-lg-12 col-sm-6">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-7 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Numri i produkteve:</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control" name="" value="0" id="show-total-products"
+                                                                disabled />
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-xl-4 col-lg-12 col-sm-6">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-7 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Përfitimi i klientëve:</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control" name="" value="0"
+                                                                disabled />
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-flush mt-3">
+                                        <!--begin::Card head-->
+                                        <div class="card-header card-header-stretch">
+                                            <!--begin::Toolbar-->
+                                            <div class="card-toolbar mt-3 w-100">
+                                                <!--begin::Tab nav-->
+                                                <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0 fw-bold entry-sistem w-100"
+                                                    role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                                        <a id="company_tab"
+                                                            class="nav-link justify-content-center text-active-gray-800 active"
+                                                            data-bs-toggle="tab" role="tab" href="#activeAction">Lista e
+                                                            aksioneve aktive
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <a id="unit_tab"
+                                                            class="nav-link justify-content-center text-active-gray-800"
+                                                            data-bs-toggle="tab" role="tab" href="#expiredAction">Aksionet e
+                                                            kaluara
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <!--end::Tab nav-->
+                                            </div>
+                                            <!--end::Toolbar-->
+                                        </div>
+                                        <!--end::Card head-->
+                                        <!--begin::Card body-->
+                                        <div class="card-body">
+                                            <!--begin::Tab Content-->
+                                            <div class="tab-content">
+                                                <!--begin::Tab panel-->
+                                                <div id="activeAction" class="card-body p-0 tab-pane fade show active"
+                                                    role="tabpanel" aria-labelledby="company_tab">
+                                                    <!--begin::Content wrapper-->
+                                                    <div class="d-flex flex-column flex-column-fluid">
+                                                        <!--begin::Content-->
+                                                        <div id="kt_app_content" class="app-content flex-column-fluid">
+                                                            <!--begin::Content container-->
+                                                            <div id="kt_app_content_container">
+                                                                <!--begin:::Tab content-->
+                                                                <div class="tab-content" id="myTabContent">
+                                                                    <!--begin::Content-->
+                                                                    <div id="kt_app_content" class=" flex-column-fluid">
+                                                                        <!--begin::Content container-->
+                                                                        <div id="kt_app_content_container">
+                                                                            <!--begin::Products-->
+                                                                            <div class="card card-flush mt-3">
+                                                                                <!--begin::Card header-->
+                                                                                <div
+                                                                                    class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                                                                    <!--begin::Card title-->
+                                                                                    <div class="card-title">
+                                                                                        <!--begin::Search-->
+                                                                                        <div
+                                                                                            class="d-flex align-items-center position-relative my-1">
+                                                                                            <i
+                                                                                                class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                                                                                <span
+                                                                                                    class="path1"></span>
+                                                                                                <span
+                                                                                                    class="path2"></span>
+                                                                                            </i>
+                                                                                            <input type="text"
+                                                                                                id="active-table-search"
+                                                                                                class="form-control form-control-solid w-250px ps-12"
+                                                                                                placeholder="Kërko..." />
+                                                                                        </div>
+                                                                                        <!--end::Search-->
+
+                                                                                    </div>
+                                                                                    <!--end::Card title-->
+                                                                                    <div
+                                                                                        class="d-flex align-items-center flex-wrap ms-auto">
+                                                                                        <div>
+                                                                                            <div class="w-100">
+                                                                                                <!--begin::Select2-->
+                                                                                                <select
+                                                                                                    class="form-select form-select-solid"
+                                                                                                    id="unit-active"
+                                                                                                    data-control="select2"
+                                                                                                    data-hide-search="true"
+                                                                                                    data-placeholder="Njësia">
+                                                                                                    <option></option>
+                                                                                                    <option value="all" selected>Të gjitha njesit</option>
+                                                                                                    <% for(let i =0;i<unit.length;i++){%>
+                                                                                                        <option value="<%=unit[i]._id  %>"><%=unit[i].unit_name  %></option>
+                                                                                                        <% } %>
+                                                                                                </select>
+                                                                                                <!--end::Select2-->
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div id="print-active" class="ms-3">
+                                                                                            </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!--end::Card header-->
+                                                                                <!--begin::Card body-->
+                                                                                <div class="card-body pt-0">
+                                                                                    <div class="table-responsive">
+                                                                                        <!--begin::Table-->
+                                                                                        <table
+                                                                                            class="table align-middle table-row-dashed fs-6 gy-5"
+                                                                                            id="table_active_action">
+                                                                                            <thead>
+                                                                                                <tr
+                                                                                                    class="text-start text-gray-800 fw-bold fs-6 text-uppercase gs-0">
+                                                                                                    <th class="w-10px">
+                                                                                                        Nr
+                                                                                                    </th>
+                                                                                                    <th class="w-100px">
+                                                                                                        Shifra e
+                                                                                                        aksionit
+                                                                                                    </th>
+                                                                                                    <th class="w-20px">
+                                                                                                        Nr i artikujve
+                                                                                                    </th>
+                                                                                                    <th class="w-50px">
+                                                                                                        Çmimi pa zbritje
+                                                                                                    </th>
+                                                                                                    <th class="w-50px">
+                                                                                                        Çmimi në aksion
+                                                                                                    </th>
+                                                                                                    <th class="w-10px">
+                                                                                                        % e zbritjes
+                                                                                                    </th>
+                                                                                                    <th class="w-20px">
+                                                                                                        Data e startimit
+                                                                                                    </th>
+                                                                                                    <th class="w-20px">
+                                                                                                        Data e
+                                                                                                        përfundimit
+                                                                                                    </th>
+                                                                                                    <th class="w-50px">
+                                                                                                        Dedikimi
+                                                                                                    </th>
+                                                                                                    <th
+                                                                                                        class="text-center w-10px">
+                                                                                                        Opsionet</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody
+                                                                                                class="fw-semibold text-gray-700">
+                                                                                               
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                        <!--end::Table-->
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!--end::Card body-->
+                                                                            </div>
+                                                                            <!--end::Products-->
+                                                                        </div>
+                                                                        <!--end::Content container-->
+                                                                    </div>
+                                                                    <!--end::Content-->
+                                                                </div>
+                                                                <!--end:::Tab content-->
+                                                            </div>
+                                                            <!--end::Content container-->
+                                                        </div>
+                                                        <!--end::Content-->
+                                                    </div>
+                                                    <!--end::Content wrapper-->
+                                                </div>
+                                                <!--end::Tab panel-->
+                                                <!--begin::Tab panel-->
+                                                <div id="expiredAction" class="card-body p-0 tab-pane fade show" role="tabpanel"
+                                                    aria-labelledby="unit_tab">
+                                                    <!--begin::Content wrapper-->
+                                                    <div class="d-flex flex-column flex-column-fluid">
+                                                        <!--begin::Content-->
+                                                        <div id="kt_app_content" class="app-content flex-column-fluid">
+                                                            <!--begin::Content container-->
+                                                            <div id="kt_app_content_container">
+                                                                <!--begin:::Tab content-->
+                                                                <div class="tab-content" id="myTabContent">
+                                                                    <!--begin::Content-->
+                                                                    <div id="kt_app_content" class=" flex-column-fluid">
+                                                                        <!--begin::Content container-->
+                                                                        <div id="kt_app_content_container">
+                                                                            <!--begin::Products-->
+                                                                            <div class="card card-flush mt-3">
+                                                                                <!--begin::Card header-->
+                                                                                <div
+                                                                                    class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                                                                    <!--begin::Card title-->
+                                                                                    <div class="card-title">
+                                                                                        <!--begin::Search-->
+                                                                                        <div
+                                                                                            class="d-flex align-items-center position-relative my-1">
+                                                                                            <i
+                                                                                                class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                                                                                <span
+                                                                                                    class="path1"></span>
+                                                                                                <span
+                                                                                                    class="path2"></span>
+                                                                                            </i>
+                                                                                            <input type="text"
+                                                                                                id="table-expire-search"
+                                                                                                class="form-control form-control-solid w-250px ps-12"
+                                                                                                placeholder="Kërko..." />
+                                                                                        </div>
+                                                                                        <!--end::Search-->
+                                                                                    </div>
+                                                                                    <!--end::Card title-->
+                                                                                    <div
+                                                                                        class="d-flex align-items-center flex-wrap ms-auto">
+                                                                                        <div>
+                                                                                            <div class="w-100">
+                                                                                                <!--begin::Select2-->
+                                                                                                <select
+                                                                                                    class="form-select form-select-solid"
+                                                                                                    id="expire-unit"
+                                                                                                    data-control="select2"
+                                                                                                    data-hide-search="true"
+                                                                                                    data-placeholder="Njësia">
+                                                                                                    <option></option>
+                                                                                                    <option value="all" selected>Të gjitha njesit</option>
+                                                                                                    <% for(let i =0;i<unit.length;i++){%>
+                                                                                                        <option value="<%=unit[i]._id  %>"><%=unit[i].unit_name  %></option>
+                                                                                                        <% } %>
+                                                                                                </select>
+                                                                                                <!--end::Select2-->
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div id="print-expire" class="ms-3">
+                                                                                            </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!--end::Card header-->
+                                                                                <!--begin::Card body-->
+                                                                                <div class="card-body pt-0">
+                                                                                    <div class="table-responsive">
+                                                                                        <!--begin::Table-->
+                                                                                        <table
+                                                                                            class="table align-middle table-row-dashed fs-6 gy-5"
+                                                                                            id="table_expire_action">
+                                                                                            <thead>
+                                                                                                <tr
+                                                                                                    class="text-start text-gray-800 fw-bold fs-6 text-uppercase gs-0">
+                                                                                                    <th class="w-10px">
+                                                                                                        Nr
+                                                                                                    </th>
+                                                                                                    <th class="w-100px">
+                                                                                                        Shifra e
+                                                                                                        aksionit
+                                                                                                    </th>
+                                                                                                    <th class="w-20px">
+                                                                                                        Nr i artikujve
+                                                                                                    </th>
+                                                                                                    <th class="w-50px">
+                                                                                                        Çmimi pa zbritje
+                                                                                                    </th>
+                                                                                                    <th class="w-50px">
+                                                                                                        Çmimi në aksion
+                                                                                                    </th>
+                                                                                                    <th class="w-10px">
+                                                                                                        % e zbritjes
+                                                                                                    </th>
+                                                                                                    <th class="w-20px">
+                                                                                                        Data e startimit
+                                                                                                    </th>
+                                                                                                    <th class="w-20px">
+                                                                                                        Data e
+                                                                                                        përfundimit
+                                                                                                    </th>
+                                                                                                    <th class="w-50px">
+                                                                                                        Dedikimi
+                                                                                                    </th>
+                                                                                                    <th
+                                                                                                        class="text-center w-10px">
+                                                                                                        Opsionet</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody
+                                                                                                class="fw-semibold text-gray-700">
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                        <!--end::Table-->
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!--end::Card body-->
+                                                                            </div>
+                                                                            <!--end::Products-->
+                                                                        </div>
+                                                                        <!--end::Content container-->
+                                                                    </div>
+                                                                    <!--end::Content-->
+                                                                </div>
+                                                                <!--end:::Tab content-->
+                                                            </div>
+                                                            <!--end::Content container-->
+                                                        </div>
+                                                        <!--end::Content-->
+                                                    </div>
+                                                    <!--end::Content wrapper-->
+                                                </div>
+                                                <!--end::Tab panel-->
+                                            </div>
+                                            <!--end::Tab Content-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                </div>
+                                <!--end::Container-->
+                            </div>
+                            <!--end::Post-->
+                        </div>
+                        <!--end::Content-->
+
+                        <%- include('./includes/footer.ejs') %>
+                </div>
+                <!--end::Wrapper-->
+        </div>
+        <!--end::Page-->
+    </div>
+    <!--end::App-->
+    <!--begin::Javascript-->
+    <%- include('./includes/script.ejs') %>
+
+        <!--end::Javascript-->
+        <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+        <!--begin::Custom Javascript(used for this page only)-->
+        <script src="/assets/js/utils.js"></script>
+        <script src="/assets/js/action/addAction.js"></script>
+        <script src="/assets/js/action/action_active_table.js"></script>
+        <script src="/assets/js/action/action_expired_table.js"></script>
+        <script src="/assets/js/custom/apps/ecommerce/customers/listing/search/listing.js"></script>
+        <script src="/assets/js/custom/apps/ecommerce/customers/listing/search/listing-out-cash.js"></script>
+
+        <script>
+            $("#kt_datepicker_2").flatpickr();
+        </script>
+
+        <!--end::Javascript-->
+</body>
+<!--end::Body-->
+
+</html>

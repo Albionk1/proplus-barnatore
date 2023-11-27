@@ -1,0 +1,585 @@
+<!--begin::Sidebar-->
+<div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar"
+	data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px"
+	data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
+	<!--begin::Logo-->
+	<div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
+		<!--begin::Logo image-->
+		<a href="/admin/index" class="fs-3 text-white fw-bold">
+			<img src="/assets/media/logos/final-logo.png" width="100%" height="35px" alt="">
+		</a>
+		<!--end::Logo image-->
+	</div>
+	<!--end::Logo-->
+	<!--begin::sidebar menu-->
+	<% const accesses={ "cash_register" : false, "stock" : false, "actions" : false, "offerts" : false, "supply" :
+		false, "intern_exhange" : false, "article" : false, "clients" : false, "workers" : false, "company" :
+		false, "partners" :false, "statistic" :false, "sales_many" :false, 'thanadev' :false } %>
+		<%if(typeof thana !=="undefined" ) accesses.thanadev=true%>
+			<%if(typeof user !=='undefined' && user){%>
+				<%const accessArr=user.access.split(',')%>
+					<% for(let i=0;i< accessArr.length;i++){%>
+						<%accesses[accessArr[i]]=true%>
+							<%}}%>
+								<div class="app-sidebar-menu overflow-hidden flex-column-fluid">
+									<!--begin::Menu wrapper-->
+									<div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper">
+										<!--begin::Scroll wrapper-->
+										<div id="kt_app_sidebar_menu_scroll" class="scroll-y mx-3" data-kt-scroll="true"
+											data-kt-scroll-activate="true" data-kt-scroll-height="auto"
+											data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer"
+											data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px"
+											data-kt-scroll-save-state="true">
+											<!--begin::Menu-->
+											<div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6"
+												id="#kt_app_sidebar_menu" data-kt-menu="true"
+												data-kt-menu-expand="false">
+												<!--begin::POS-->
+												<div class="menu-item mt-3 d-md-none d-flex">
+													<!--begin:Menu link-->
+													<a href="/pos/index" class="menu-link active"
+														style="background-color: #3e97ff !important;">
+														<span class="menu-icon">
+															<i class="ki-duotone ki-handcart fs-2"></i>
+														</span>
+														<span class="menu-title fs-5">POS</span>
+													</a>
+													<!--end:Menu link-->
+												</div>
+												<!--end::POS-->
+												<!--begin:Menu item-->
+												<div class="menu-item mt-3">
+													<!--begin:Menu link-->
+													<a class="menu-link" href="/admin/index">
+														<span class="menu-icon">
+															<i class="ki-duotone ki-home fs-2"></i>
+														</span>
+														<span class="menu-title fs-5">Dashboard</span>
+													</a>
+													<!--end:Menu link-->
+												</div>
+												<!--end:Menu item-->
+												<%if(accesses.cash_register||accesses.thanadev||user.role==='superadmin'){%>
+													<!--begin:Menu item-->
+													<div class="menu-item">
+														<!--begin:Menu link-->
+														<a class="menu-link" href="/admin/arc">
+															<span class="menu-icon">
+																<i class="ki-duotone ki-tag fs-2">
+																	<i class="path1"></i>
+																	<i class="path2"></i>
+																	<i class="path3"></i>
+																</i>
+															</span>
+															<span class="menu-title fs-5">Arka</span>
+														</a>
+														<!--end:Menu link-->
+													</div>
+													<!--end:Menu item-->
+													<%}%>
+														<%if(accesses.sales_many||accesses.thanadev||user.role==='superadmin'){%>
+															<!--begin:Menu item-->
+															<div data-kt-menu-trigger="click"
+																class="menu-item here menu-accordion">
+																<!--begin:Menu link-->
+																<span class="menu-link">
+																	<span class="menu-icon">
+																		<i class="ki-duotone ki-chart-simple  fs-2">
+																			<span class="path1"></span>
+																			<span class="path2"></span>
+																			<span class="path3"></span>
+																			<span class="path4"></span>
+																		</i>
+																	</span>
+																	<span class="menu-title">Shitjet</span>
+																	<span class="menu-arrow"></span>
+																</span>
+																<!--end:Menu link-->
+																<!--begin:Menu sub-->
+																<div class="menu-sub menu-sub-accordion">
+																	<!--begin:Menu item-->
+																	<div class="menu-item">
+																		<!--begin:Menu link-->
+																		<a class="menu-link" href="/pos/index">
+																			<span class="menu-bullet">
+																				<span class="bullet bullet-dot"></span>
+																			</span>
+																			<span class="menu-title">Me pakicë</span>
+																		</a>
+																		<!--end:Menu link-->
+																	</div>
+																	<!--end:Menu item-->
+																	<!--begin:Menu item-->
+																	<div class="menu-item">
+																		<!--begin:Menu link-->
+																		<a class="menu-link"
+																			href="/admin/sales-wholesale">
+																			<span class="menu-bullet">
+																				<span class="bullet bullet-dot"></span>
+																			</span>
+																			<span class="menu-title">Me shumicë</span>
+																		</a>
+																		<!--end:Menu link-->
+																	</div>
+																	<!--end:Menu item-->
+																</div>
+																<!--end:Menu sub-->
+															</div>
+															<!--end:Menu item-->
+															<%}%>
+																<%if(accesses.stock||accesses.thanadev||user.role==='superadmin'){%>
+																	<!--begin:Menu item-->
+																	<div data-kt-menu-trigger="click"
+																		class="menu-item here menu-accordion">
+																		<!--begin:Menu link-->
+																		<span class="menu-link">
+																			<span class="menu-icon">
+																				<i
+																					class="ki-duotone ki-chart-simple  fs-2">
+																					<span class="path1"></span>
+																					<span class="path2"></span>
+																					<span class="path3"></span>
+																					<span class="path4"></span>
+																				</i>
+																			</span>
+																			<span class="menu-title">Stoku</span>
+																			<span class="menu-arrow"></span>
+																		</span>
+																		<!--end:Menu link-->
+																		<!--begin:Menu sub-->
+																		<div class="menu-sub menu-sub-accordion">
+																			<!--begin:Menu item-->
+																			<div class="menu-item">
+																				<!--begin:Menu link-->
+																				<a class="menu-link"
+																					href="/admin/stock">
+																					<span class="menu-bullet">
+																						<span
+																							class="bullet bullet-dot"></span>
+																					</span>
+																					<span
+																						class="menu-title">Stoku</span>
+																				</a>
+																				<!--end:Menu link-->
+																			</div>
+																			<!--end:Menu item-->
+																			<!--begin:Menu item-->
+																			<div class="menu-item">
+																				<!--begin:Menu link-->
+																				<a class="menu-link"
+																					href="/admin/stock-count">
+																					<span class="menu-bullet">
+																						<span
+																							class="bullet bullet-dot"></span>
+																					</span>
+																					<span class="menu-title">Numërimi i
+																						stokut</span>
+																				</a>
+																				<!--end:Menu link-->
+																			</div>
+																			<!--end:Menu item-->
+																		</div>
+																		<!--end:Menu sub-->
+																	</div>
+																	<!--end:Menu item-->
+																	<%}%>
+																		<%if(accesses.actions||accesses.thanadev||user.role==='superadmin'){%>
+																			<!--begin:Menu item-->
+																			<div class="menu-item">
+																				<!--begin:Menu link-->
+																				<a class="menu-link"
+																					href="/admin/shares">
+																					<span class="menu-icon">
+																						<i
+																							class="ki-duotone ki-chart-simple-3 fs-2">
+																							<i class="path1"></i>
+																							<i class="path2"></i>
+																							<i class="path3"></i>
+																							<i class="path4"></i>
+																						</i>
+																					</span>
+																					<span
+																						class="menu-title fs-5">Aksionet</span>
+																				</a>
+																				<!--end:Menu link-->
+																			</div>
+																			<!--end:Menu item-->
+																			<%}%>
+																				<%if(accesses.offerts||accesses.thanadev||user.role==='superadmin'){%>
+																					<!--begin:Menu item-->
+																					<div class="menu-item">
+																						<!--begin:Menu link-->
+																						<a class="menu-link"
+																							href="/admin/offers">
+																							<span class="menu-icon">
+																								<i
+																									class="ki-duotone ki-ranking fs-2">
+																									<i
+																										class="path1"></i>
+																									<i
+																										class="path2"></i>
+																									<i
+																										class="path3"></i>
+																									<i
+																										class="path4"></i>
+																								</i>
+																							</span>
+																							<span
+																								class="menu-title fs-5">Oferto</span>
+																						</a>
+																						<!--end:Menu link-->
+																					</div>
+																					<!--end:Menu item-->
+																					<%}%>
+																						<%if(accesses.supply||accesses.thanadev||user.role==='superadmin'){%>
+																							<!--begin:Menu item-->
+																							<div class="menu-item">
+																								<!--begin:Menu link-->
+																								<a class="menu-link"
+																									href="/admin/supplies">
+																									<span
+																										class="menu-icon">
+																										<i
+																											class="ki-duotone ki-office-bag fs-2">
+																											<i
+																												class="path1"></i>
+																											<i
+																												class="path2"></i>
+																											<i
+																												class="path3"></i>
+																											<i
+																												class="path4"></i>
+																										</i>
+																									</span>
+																									<span
+																										class="menu-title fs-5">Furnizimet
+																										/ Blerjet</span>
+																								</a>
+																								<!--end:Menu link-->
+																							</div>
+																							<!--end:Menu item-->
+																							<%}%>
+																								<%if(accesses.intern_exhange||accesses.thanadev||user.role==='superadmin'){%>
+																									<!--begin:Menu item-->
+																									<div
+																										class="menu-item">
+																										<!--begin:Menu link-->
+																										<a class="menu-link"
+																											href="/admin/internal-moves">
+																											<span
+																												class="menu-icon">
+																												<i
+																													class="ki-duotone ki-arrow-right-left fs-2">
+																													<span
+																														class="path1"></span>
+																													<span
+																														class="path2"></span>
+																												</i>
+																											</span>
+																											<span
+																												class="menu-title fs-5">Lëvizjet
+																												interne</span>
+																										</a>
+																										<!--end:Menu link-->
+																									</div>
+																									<!--end:Menu item-->
+																									<%}%>
+																										<%if(accesses.statistic||accesses.thanadev||user.role==='superadmin'){%>
+																											<!--begin:Menu item-->
+																											<div data-kt-menu-trigger="click"
+																												class="menu-item here menu-accordion">
+																												<!--begin:Menu link-->
+																												<span
+																													class="menu-link">
+																													<span
+																														class="menu-icon">
+																														<i
+																															class="ki-duotone ki-graph-up fs-2">
+																															<span
+																																class="path1"></span>
+																															<span
+																																class="path2"></span>
+																															<span
+																																class="path3"></span>
+																															<span
+																																class="path4"></span>
+																															<span
+																																class="path5"></span>
+																															<span
+																																class="path6"></span>
+																														</i>
+																													</span>
+																													<span
+																														class="menu-title">Statistikat</span>
+																													<span
+																														class="menu-arrow"></span>
+																												</span>
+																												<!--end:Menu link-->
+																												<!--begin:Menu sub-->
+																												<div
+																													class="menu-sub menu-sub-accordion">
+																													<!--begin:Menu item-->
+																													<div
+																														class="menu-item">
+																														<!--begin:Menu link-->
+																														<a class="menu-link"
+																															href="/admin/statistic-general">
+																															<span
+																																class="menu-bullet">
+																																<span
+																																	class="bullet bullet-dot"></span>
+																															</span>
+																															<span
+																																class="menu-title">Statistikat
+																																gjenerale</span>
+																														</a>
+																														<!--end:Menu link-->
+																													</div>
+																													<!--end:Menu item-->
+																													<!--begin:Menu item-->
+																													<div
+																														class="menu-item">
+																														<!--begin:Menu link-->
+																														<a class="menu-link"
+																															href="/admin/statistic-cashflow">
+																															<span
+																																class="menu-bullet">
+																																<span
+																																	class="bullet bullet-dot"></span>
+																															</span>
+																															<span
+																																class="menu-title">Cash
+																																flow</span>
+																														</a>
+																														<!--end:Menu link-->
+																													</div>
+																													<!--end:Menu item-->
+																												</div>
+																												<!--end:Menu sub-->
+																											</div>
+																											<!--end:Menu item-->
+																											<%}%>
+																												<%if(accesses.article||accesses.thanadev||user.role==='superadmin'){%>
+																													<!--begin:Menu item-->
+																													<div
+																														class="menu-item">
+																														<!--begin:Menu link-->
+																														<a class="menu-link"
+																															href="/admin/articles">
+																															<span
+																																class="menu-icon">
+																																<i
+																																	class="ki-duotone ki-package fs-2">
+																																	<i
+																																		class="path1"></i>
+																																	<i
+																																		class="path2"></i>
+																																	<i
+																																		class="path3"></i>
+																																</i>
+																															</span>
+																															<span
+																																class="menu-title fs-5">Artikujt</span>
+																														</a>
+																														<!--end:Menu link-->
+																													</div>
+																													<!--end:Menu item-->
+																													<%}%>
+																														<%if(accesses.clients||accesses.thanadev||user.role==='superadmin'){%>
+																															<!--begin:Menu item-->
+																															<div
+																																class="menu-item">
+																																<!--begin:Menu link-->
+																																<a class="menu-link"
+																																	href="/admin/clients">
+																																	<span
+																																		class="menu-icon">
+																																		<i
+																																			class="ki-duotone ki-people fs-2">
+																																			<i
+																																				class="path1"></i>
+																																			<i
+																																				class="path2"></i>
+																																			<i
+																																				class="path3"></i>
+																																			<i
+																																				class="path4"></i>
+																																			<i
+																																				class="path5"></i>
+																																		</i>
+																																	</span>
+																																	<span
+																																		class="menu-title fs-5">Klientët</span>
+																																</a>
+																																<!--end:Menu link-->
+																															</div>
+																															<!--end:Menu item-->
+																															<%}%>
+																																<%if(accesses.workers||accesses.thanadev||user.role==='superadmin'){%>
+																																	<!--begin:Menu item-->
+																																	<div
+																																		class="menu-item">
+																																		<!--begin:Menu link-->
+																																		<a class="menu-link"
+																																			href="/admin/workers">
+																																			<span
+																																				class="menu-icon">
+																																				<i
+																																					class="ki-duotone ki-user-tick fs-2">
+																																					<i
+																																						class="path1"></i>
+																																					<i
+																																						class="path2"></i>
+																																					<i
+																																						class="path3"></i>
+																																				</i>
+																																			</span>
+																																			<span
+																																				class="menu-title fs-5">Punëtorët</span>
+																																		</a>
+																																		<!--end:Menu link-->
+																																	</div>
+																																	<!--end:Menu item-->
+																																	<%}%>
+																																		<%if(accesses.company||accesses.thanadev||user.role==='superadmin'){%>
+																																			<!--begin:Menu item-->
+																																			<div
+																																				class="menu-item">
+																																				<!--begin:Menu link-->
+																																				<a class="menu-link"
+																																					href="/admin/company">
+																																					<span
+																																						class="menu-icon">
+																																						<i
+																																							class="ki-duotone ki-safe-home fs-2">
+																																							<i
+																																								class="path1"></i>
+																																							<i
+																																								class="path2"></i>
+																																						</i>
+																																					</span>
+																																					<span
+																																						class="menu-title fs-5">Kompania</span>
+																																				</a>
+																																				<!--end:Menu link-->
+																																			</div>
+																																			<!--end:Menu item-->
+																																			<%}%>
+																																				<%if(accesses.partners||accesses.thanadev||user.role==='superadmin'){%>
+																																					<!--begin:Menu item-->
+																																					<div
+																																						class="menu-item d-none">
+																																						<!--begin:Menu link-->
+																																						<a class="menu-link"
+																																							href="/admin/partners">
+																																							<span
+																																								class="menu-icon">
+																																								<i
+																																									class="ki-duotone ki-profile-user fs-2">
+																																									<i
+																																										class="path1"></i>
+																																									<i
+																																										class="path2"></i>
+																																									<i
+																																										class="path3"></i>
+																																									<i
+																																										class="path4"></i>
+																																								</i>
+																																							</span>
+																																							<span
+																																								class="menu-title fs-5">Partnerët</span>
+																																						</a>
+																																						<!--end:Menu link-->
+																																					</div>
+																																					<!--end:Menu item-->
+																																					<%}%>
+																																						<%if(accesses.thanadev){%>
+																																							<!--begin:Menu item-->
+																																							<div
+																																								class="menu-item">
+																																								<!--begin:Menu link-->
+																																								<a class="menu-link"
+																																									href="/admin/thana-dev">
+																																									<span
+																																										class="menu-icon">
+																																										<i
+																																											class="ki-duotone ki-devices fs-2">
+																																											<i
+																																												class="path1"></i>
+																																											<i
+																																												class="path2"></i>
+																																											<i
+																																												class="path3"></i>
+																																											<i
+																																												class="path4"></i>
+																																											<i
+																																												class="path5"></i>
+																																										</i>
+																																									</span>
+																																									<span
+																																										class="menu-title fs-5">Thana
+																																										Dev</span>
+																																								</a>
+																																								<!--end:Menu link-->
+																																							</div>
+																																							<!--end:Menu item-->
+																																							<%}%>
+											</div>
+											<!--end::Menu-->
+										</div>
+										<!--end::Scroll wrapper-->
+									</div>
+									<!--end::Menu wrapper-->
+								</div>
+								<!--end::sidebar menu-->
+</div>
+<!--end::Sidebar-->
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+
+
+		const nav_links = document.querySelectorAll('.menu-link');
+		nav_links.forEach(link => {
+			link.addEventListener('click', function (e) {
+				if (this.getAttribute('href')) {
+					sessionStorage.setItem('navLink', this.getAttribute('href'));
+				}
+				if (!this.getAttribute('href')) {
+					sessionStorage.setItem('navLink', this.parentNode.getAttribute('href'));
+				}
+			})
+		})
+
+
+		// On page load, check for a stored active link and apply the active class
+		const navLink = sessionStorage.getItem('navLink')
+
+		if (navLink) {
+			const link = document.querySelector(`[href="${navLink}"].menu-link`);
+			if (link) {
+				if (!navLink.includes('/messages')) {
+					if (!link.querySelector('.menu-link')) {
+						const parentDiv = link.closest('.menu-item.menu-accordion');
+						const secondDiv = link.closest('.menu-sub.menu-sub-accordion');
+						if (parentDiv) {
+							parentDiv.classList.add('hover', 'show')
+							secondDiv.classList.add('hover', 'show')
+							secondDiv.style = ""
+							link.classList.add('active', 'hover')
+						}
+						if (!parentDiv) {
+
+							link.classList.add('active', 'hover')
+						}
+					}
+					if (link.querySelector('.menu-link')) {
+						link.querySelector('.menu-link').classList.add('active', 'hover')
+					}
+				} else {
+					const div = document.querySelector(`a.menu-item[href="${sessionStorage.getItem('navLink')}"]`);
+					div.querySelector('.menu-link').classList.add('active', 'hover')
+				}
+			}
+		}
+	})
+</script>

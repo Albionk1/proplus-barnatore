@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<!--
+Author: Thana Dev 2023
+Product Name: Services
+-->
+<html lang="en">
+<!--begin::Head-->
+
+<head>
+    <!--Begin Meta links-->
+    <%- include ('includes/meta-links.ejs') %>
+        <!--End Meta links-->
+        <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+
+
+
+        <style>
+            #target_furnitor .select2-container--bootstrap5 .select2-dropdown .select2-results__option.select2-results__option--highlighted {
+                background-color: blue !important;
+                color: white !important;
+                border: 1px solid blue !important;
+            }
+        </style>
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+
+<body onload="startClock()" id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true"
+    data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true"
+    data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true"
+    data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
+    <!--begin::Theme mode setup on page load-->
+
+    <!--end::Theme mode setup on page load-->
+    <!--begin::App-->
+    <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+        <!--begin::Page-->
+        <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+            <!--begin::Header-->
+            <%- include('./includes/header.ejs') %>
+                <!--end::Header-->
+                <!--begin::Wrapper-->
+                <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+                    <!--begin::Sidebar-->
+                    <%- include('./includes/sidebar.ejs') %>
+                        <!--end::Sidebar-->
+                        <!--begin::Content-->
+                        <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+                            <!--begin::Post-->
+                            <div class="post d-flex flex-column-fluid " id="kt_post">
+                                <!--begin::Container-->
+                                <div id="kt_content_container" class="container-fluid">
+                                    <!--begin::Form-->
+                                   
+                                        <!--begin::Content wrapper-->
+                                        <div class="d-flex flex-column flex-column-fluid card mt-7">
+                                            <!--begin::Card body-->
+                                            <div class="card-body border-top pt-5">
+                                                <!--begin::Input group-->
+                                                <!--begin::Row-->
+                                                <div class="row">
+                                                    <!--begin::Col-->
+                                                    <div class="col-xl-2 col-sm-4 row align-items-center">
+                                                        <!--begin::Input group-->
+                                                        <div
+                                                            class="col-sm-9 col-10 d-flex flex-column mb-3 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Furnitori</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <p id="supplier-supply-error"
+                                                                class="text-danger show-errors-supply mb-0"></p>
+                                                            <!--begin::Input-->
+                                                            <select class="form-select form-select-solid"
+                                                                data-control="select2" id="supplier" <% if(supply){%>disabled<% } %>
+                                                                data-placeholder="Zgjedh furnitorin
+                                                                ">
+                                                                <option></option>
+                                                                <% for(let i=0 ;i<furnitorOnDb.length;i++){%>
+                                                    
+                                                                    <option value="<%=furnitorOnDb[i]._id %>" <% if(supply&&supply.supplier.toString()===furnitorOnDb[i]._id.toString()){%>selected<% } %>>
+                                                                        <%=furnitorOnDb[i].name %>
+                                                                    </option>
+                                                                    <% } %>
+                                                                        <option
+                                                                            style="background-color: blue !important; color: white;">
+                                                                            <a href="/admin/supplier-new">Regjistro
+                                                                                furnitor të
+                                                                                ri</a>
+                                                                        </option>
+                                                            </select>
+
+                                                        </div>
+                                                        <div class="col-sm-3 col-2 mt-7">
+                                                            <a href="/admin/supplier-new">
+                                                                <i
+                                                                    class="fas fa-plus-circle fs-2x text-primary ms-auto"></i>
+                                                            </a>
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-xl-2 col-sm-4">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-3 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Numri i faturës</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <p id="invoice-supply-error"
+                                                                class="text-danger show-errors-supply mb-0"></p>
+                                                            <!--begin::Input-->
+                                                            <input type="text"
+                                                                class="form-control form-control-solid" name="" <%if(supply){%>disabled<% } %>
+                                                                id="invoice" value="<%=supply?supply.invoice:''%>"
+                                                                placeholder="Shëno numrin e faturës" />
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-xl-2 col-sm-4">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-3 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Tipi i blerjes</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <p id="buy_type-supply-error"
+                                                                class="text-danger show-errors-supply mb-0"></p>
+                                                            <!--begin::Input-->
+                                                            <select class="form-select form-select-solid"
+                                                                id="buy_type" data-control="select2"
+                                                                <%if(supply){%>disabled<% } %>
+                                                                data-placeholder="Tipi i blerjes">
+                                                                <option></option>
+                                                                <option value="vendore" <%if(supply&&supply.buy_type==='vendore') {%>selected<% } %>>Vendore</option>
+                                                                <option value="damaged_supply" <%if(supply&&supply.buy_type==='damaged_supply') {%>selected<% } %>>Mall i dëmtuar
+                                                                </option>
+                                                                <option value="returned_supply" <%if(supply&&supply.buy_type==='returned_supply') {%>selected<% } %>>Lista e kthimeve
+                                                                </option>
+                                                                <option value="expense_supply" <%if(supply&&supply.buy_type==='expense_supply') {%>selected<% } %>>Lista e
+                                                                    shpenzimeve</option>
+                                                            </select>
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-xl-2 col-sm-4">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-3 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Zgjedh datën</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <p id="date-supply-error"
+                                                                class="text-danger show-errors-offer mb-0">
+                                                            </p>
+
+                                                            <input class="form-control"  <%if(supply){%>disabled<% } %>
+                                                                placeholder="Zgjedh datën" `
+                                                                id="kt_datepicker_1" <% if(supply){%>value="<%=supply.date  %>"<% } %>/>
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <div class="col-xl-2 col-sm-4">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-3 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Njësia shitëse</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <p id="unit-supply-error"
+                                                                class="text-danger show-errors-offer mb-0">
+                                                            </p>
+                                                            <!--begin::Select2-->
+                                                            <select class="form-select form-select-solid"
+                                                                data-control="select2" id="unit"
+                                                                data-hide-search="true" <%if(supply){%>disabled<% } %>
+                                                                data-placeholder="Njësia shitëse">
+                                                                <option></option>
+                                                                <% for(let i=0;i<unit.length;i++){%>
+                                                                    <option value="<%=unit[i]._id  %>"<%if(supply&&supply.unit.toString()===unit[i]._id.toString()  ) {%>selected<% } %>>
+                                                                        <%=unit[i].unit_name %>
+                                                                    </option>
+                                                                    <% } %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-2 col-sm-4 mt-sm-11 mt-3">
+                                                        <button type="submit" class="btn btn-primary w-100 " <%if(supply){%>disabled<% } %>
+                                                            id="create_supply">Vazhdo</button>
+                                                    </div>
+                                                </div>
+                                                <!--end::Row-->
+                                            </div>
+                                        </div>
+                                        <!--end::Toolbar container-->
+                                    
+                                    <!--begin::Content-->
+
+                                    <div class="row mt-3">
+                                        <div class="col-lg-6">
+                                            <section class="search-prouduct">
+                                                <!--begin::Products-->
+                                                <div class="card card-flush">
+                                                    <h3 class="ps-5 pt-3" style="text-decoration: underline;">Kërkimi i
+                                                        artikujve</h3>
+                                                    <div class="row" style="padding: 0 2.25rem;">
+                                                        <div class="col-xl-2 col-lg-3 col-sm-2 col-6 mt-2">
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <input class="form-check-input" type="radio"
+                                                                    value="barcode" id="radioBarkod" checked
+                                                                    name="radioGroup" />
+                                                                <label class="form-check-label text-dark"
+                                                                    for="radioBarkod">
+                                                                    Barkod
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-2 col-lg-3 col-sm-2 col-6 mt-2">
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <input class="form-check-input" type="radio"
+                                                                    value="name" id="radioABC" name="radioGroup" />
+                                                                <label class="form-check-label text-dark"
+                                                                    for="radioABC">
+                                                                    ABC
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-2 col-lg-3 col-sm-2 col-6 mt-2">
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <input class="form-check-input" type="radio"
+                                                                    value="code" id="radioShifra" name="radioGroup" />
+                                                                <label class="form-check-label text-dark"
+                                                                    for="radioShifra">
+                                                                    Shifra
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--begin::Card header-->
+                                                    <div class="card-header align-items-center">
+                                                        <!--begin::Card title-->
+                                                        <div class="card-title w-100">
+                                                            <!--begin::Search-->
+                                                            <div
+                                                                class="d-flex align-items-center position-relative my-1 w-100">
+                                                                <i
+                                                                    class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                                                    <span class="path1"></span>
+                                                                    <span class="path2"></span>
+                                                                </i>
+
+                                                                <input type="text" id="article-table-search"
+                                                                    class="form-control form-control-solid ps-12 kb-text w-100"
+                                                                    placeholder="Kërko..." />
+                                                                <!-- <i class="fas fa-plus-circle fs-2x text-primary ms-auto"
+                                                                    data-bs-toggle="modal" data-bs-target="#product"
+                                                                    style="cursor: pointer;"></i> -->
+                                                            </div>
+                                                            <!--end::Search-->
+                                                        </div>
+                                                        <!--end::Card title-->
+                                                    </div>
+                                                    <!--end::Card header-->
+                                                    <!--begin::Card body-->
+                                                    <div class="card-body pt-0">
+                                                        <div class="table-responsive">
+                                                            <!--begin::Table-->
+                                                            <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                                id="article_table">
+                                                                <thead>
+                                                                    <tr
+                                                                        class="text-start text-gray-800 fw-bold fs-7 text-uppercase gs-0">
+                                                                        <th class="w-10px">Barkodi</th>
+                                                                        <th class="w-100px">Artikulli</th>
+                                                                        <th class="w-50px">Çmimi i shumicës</th>
+                                                                        <th class="w-50px">Çmimi i pakicës</th>
+                                                                        <th class="w-10px">Sasia në depo</th>
+                                                                        <th class="w-10px">Op</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="fw-semibold text-gray-700">
+                                                                </tbody>
+                                                            </table>
+                                                            <!--end::Table-->
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Card body-->
+                                                </div>
+                                                <!--end::Products-->
+                                            </section>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="card">
+                                                <h1 class="text-center" style="text-decoration: underline;">Të
+                                                    dhënat e
+                                                    vlerës së faturës
+                                                </h1>
+                                                <div class="card-body pt-0">
+
+                                                    <div class="row">
+                                                        <!--begin::Col-->
+                                                        <div class="col-xl-4 col-lg-6 col-md-4 col-6">
+                                                            <!--begin::Input group-->
+                                                            <div class="d-flex flex-column mb-3 fv-row">
+                                                                <!--begin::Label-->
+                                                                <label class="fs-6 fw-semibold form-label mt-3">
+                                                                    <span style="white-space: nowrap;">Totali i
+                                                                        produkteve</span>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" class="form-control text-center"
+                                                                    id="show-qty" name="" value="0" disabled />
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                        </div>
+                                                        <!--end::Col-->
+                                                        <!--begin::Col-->
+                                                        <div class="col-xl-4 col-lg-6 col-md-4 col-6">
+                                                            <!--begin::Input group-->
+                                                            <div
+                                                                class="d-flex justify-content-center align-items-center flex-column mb-3 fv-row">
+                                                                <!--begin::Label-->
+                                                                <label class="fs-6 fw-semibold form-label mt-3">
+                                                                    <span>Rabati 1</span>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" class="form-control text-center"
+                                                                    id="show-rab_1" name="" value="0" disabled />
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                        </div>
+                                                        <!--end::Col-->
+                                                        <!--begin::Col-->
+                                                        <div class="col-xl-4 col-lg-6 col-md-4 col-6">
+                                                            <!--begin::Input group-->
+                                                            <div
+                                                                class="d-flex justify-content-center align-items-center flex-column mb-3 fv-row">
+                                                                <!--begin::Label-->
+                                                                <label class="fs-6 fw-semibold form-label mt-3">
+                                                                    <span>Rabati 2</span>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" class="form-control text-center"
+                                                                    id="show-rab_2" name="" value="0" disabled />
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                        </div>
+                                                        <!--end::Col-->
+                                                        <!--begin::Col-->
+                                                        <div class="col-xl-4 col-lg-6 col-md-4 col-6">
+                                                            <!--begin::Input group-->
+                                                            <div class="d-flex flex-column mb-3 fv-row">
+                                                                <!--begin::Label-->
+                                                                <label class="fs-6 fw-semibold form-label mt-3">
+                                                                    <span>Çmimi furnizues pa
+                                                                        zbritje</span>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" class="form-control text-center"
+                                                                    id="show_price_total" name="" value="0€" disabled />
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                        </div>
+                                                        <!--end::Col-->
+                                                        <!--begin::Col-->
+                                                        <div class="col-xl-4 col-lg-6 col-md-4 col-6">
+                                                            <!--begin::Input group-->
+                                                            <div class="d-flex justify-content-center align-items-center
+                                                                 flex-column mb-3 fv-row">
+                                                                <!--begin::Label-->
+                                                                <label class="fs-6 fw-semibold form-label mt-3">
+                                                                    <span>Çmimi furnizues me
+                                                                        zbritje </span>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" class="form-control text-center"
+                                                                    id="show_price_discount" name="" value="0€" disabled />
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                        </div>
+                                                        <!--end::Col-->
+                                                        <!--begin::Col-->
+                                                        <div class="col-xl-4 col-lg-6 col-md-4 col-6">
+                                                            <!--begin::Input group-->
+                                                            <div
+                                                                class="d-flex justify-content-center align-items-center flex-column mb-3 fv-row">
+                                                                <!--begin::Label-->
+                                                                <label class="fs-6 fw-semibold form-label mt-3">
+                                                                    <span>Vlera shitëse e faturës </span>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" class="form-control text-center"
+                                                                    id="show-price" name="" value="0€" disabled />
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                        </div>
+                                                        <!--end::Col-->
+                                                    </div>
+                                                    <div class="row card">
+                                                        <div class=" d-flex flex-column align-items-center card-body">
+                                                            <h1 class="fs-2x font-value" id="show-total-price">0 €</h1>
+                                                            <h3>Vlera totale e faturës</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="kt_app_content" class="app-content flex-column-fluid">
+                                        <!--begin::Content container-->
+                                        <div id="kt_app_content_container">
+                                            <!--begin:::Tab content-->
+                                            <div class="tab-content" id="myTabContent">
+                                                <!--begin::Content-->
+                                                <div id="kt_app_content" class=" flex-column-fluid">
+                                                    <!--begin::Content container-->
+                                                    <div id="kt_app_content_container">
+                                                        <!--begin::Products-->
+                                                        <div class="card card-flush mt-3">
+                                                            <!--begin::Card header-->
+                                                            <div
+                                                                class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                                                <!--begin::Card title-->
+                                                                <div class="card-title">
+                                                                    <!--begin::Search-->
+                                                                    <div
+                                                                        class="d-flex align-items-center position-relative my-1">
+                                                                        <i
+                                                                            class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                                                            <span class="path1"></span>
+                                                                            <span class="path2"></span>
+                                                                        </i>
+                                                                        <input type="text" id="supply_table-search"
+                                                                            class="form-control form-control-solid w-250px ps-12"
+                                                                            placeholder="Kërko..." />
+                                                                    </div>
+                                                                    <!--end::Search-->
+                                                                </div>
+                                                                <!--end::Card title-->
+                                                                <div class="d-flex align-items-center ms-auto">
+                                                                    <button type="submit" class="btn btn-primary w-100 d-none"
+                                                                        id="">Printo
+                                                                        artikujt</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary w-100 ms-3"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#close_supply"
+                                                                        style="white-space: nowrap;">Mbyll
+                                                                        furnizimin</button>
+
+                                                                    <div id="print" class="ms-3"></div>
+                                                                </div>
+                                                            </div>
+                                                            <!--end::Card header-->
+                                                            <!--begin::Card body-->
+                                                            <div class="card-body pt-0">
+                                                                <div class="table-responsive">
+                                                                    <!--begin::Table-->
+                                                                    <table
+                                                                        class="table align-middle table-row-dashed fs-6 gy-5"
+                                                                        id="supply_table">
+                                                                        <thead>
+                                                                            <tr
+                                                                                class="text-start text-gray-800 fw-bold fs-6 text-uppercase gs-0">
+                                                                                <th class="w-10px">
+                                                                                    Nr
+                                                                                </th>
+                                                                                <th class="w-100px">
+                                                                                    Barkodi/Shifra
+                                                                                </th>
+                                                                                <th class="w-100px">
+                                                                                    Artikulli
+                                                                                </th>
+                                                                                <th class="w-50px">
+                                                                                    Çmimi</th>
+                                                                                <th class="w-50px">
+                                                                                    Sasisa</th>
+                                                                                <th class="w-100px">
+                                                                                    Vlera</th>
+                                                                                <th class="w-50px">
+                                                                                    Rabati 1</th>
+                                                                                <th class="w-50px">
+                                                                                    Rabati 2</th>
+                                                                                <th class="w-50px">
+                                                                                    Mazha e fitimit</th>
+                                                                                <th class="w-50px">
+                                                                                    Vlera totale</th>
+                                                                                <th class="text-center w-10px">
+                                                                                    Op</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody class="fw-semibold text-gray-700">
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <!--end::Table-->
+                                                                </div>
+                                                            </div>
+                                                            <!--end::Card body-->
+                                                        </div>
+                                                        <!--end::Products-->
+                                                    </div>
+                                                    <!--end::Content container-->
+                                                </div>
+                                                <!--end::Content-->
+                                            </div>
+                                            <!--end:::Tab content-->
+                                        </div>
+                                        <!--end::Content container-->
+                                    </div>
+                                    <!--end::Content-->
+                                </div>
+                                <!--end::Container-->
+                            </div>
+                            <!--end::Post-->
+                        </div>
+                        <!--end::Content-->
+
+                        <%- include('./includes/footer.ejs') %>
+                </div>
+                <!--end::Wrapper-->
+        </div>
+        <!--end::Page-->
+    </div>
+    <!--end::App-->
+    <!--begin::Modal - payment_card-->
+    <div class="modal fade" id="product" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Modal header-->
+
+                <div class="modal-header p-1 d-flex justify-content-between">
+                    <h2 class="ps-2"><%=user.full_name%></h2>
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <!--begin::Content container-->
+                    <!--begin::Contacts App- Add New Contact-->
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Body-->
+                        <div class="card-body p-0">
+                            <div class="d-flex align-items-center justify-content-end">
+                                <h1 class="pe-5" id="article_name"></h1>
+                                <div class="col-lg-2 ms-2">
+                                    <div
+                                        class="form-check form-switch form-switch-sm form-check-custom form-check-solid fs-3">
+                                        <input class="form-check-input" type="checkbox" value="" name="notifications"
+                                            id="toggleInput">
+                                        <label class="form-check-label text-dark"
+                                            style="font-size: 15px !important;">Çmimi me shumicë</label>
+                                    </div>
+                                </div>
+                                <!--begin::Col-->
+                                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                    <!--begin::Input group-->
+                                    <div class="d-flex flex-column fv-row">
+                                        <p id="price_many-supply-error" class="text-danger show-errors-supply mb-0"></p>
+                                        <!--begin::Input-->
+                                        <input type="number" class="form-control form-control-solid d-none" value="0"
+                                            name="price_many" id="price_many" placeholder="Shëno çmimin me shumicë"
+                                            step=".01" />
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <div class="row">
+                                <!--begin::Col-->
+                                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                    <!--begin::Input group-->
+                                    <div class="d-flex flex-column mb-3 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                            <span>Sasia</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <p id="qty-supply-error" class="text-danger show-errors-supply mb-0"></p>
+                                        <!--begin::Input-->
+                                        <input type="number" class="form-control form-control-solid" name="" value="1"
+                                            id="qty" min="0" placeholder="Shëno sasinë" />
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Col-->
+                                <!--begin::Col-->
+                                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                    <!--begin::Input group-->
+                                    <div class="d-flex flex-column mb-3 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                            <span>Çmimi i furnizimit</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <p id="price-supply-error" class="text-danger show-errors-supply mb-0"></p>
+                                        <!--begin::Input-->
+                                        <input type="number" class="form-control form-control-solid" name="" value=""
+                                            id="price" min="0" placeholder="Shëno çmimin e furnizimit" />
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Col-->
+                                <!--begin::Col-->
+                                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                    <!--begin::Input group-->
+                                    <div class="d-flex flex-column mb-3 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                            <span>Rabati 1</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <p id="rab_1-supply-error" class="text-danger show-errors-supply mb-0"></p>
+                                        <!--begin::Input-->
+                                        <input type="number" class="form-control form-control-solid" name="" value="0"
+                                            id="rab_1" min="0" placeholder="Shëno rabatin 1" step=".01" />
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Col-->
+                                <!--begin::Col-->
+                                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                    <!--begin::Input group-->
+                                    <div class="d-flex flex-column mb-3 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                            <span>Rabati 2</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <p id="rab_2-supply-error" class="text-danger show-errors-supply mb-0"></p>
+                                        <!--begin::Input-->
+                                        <input type="number" class="form-control form-control-solid" name="" value="0"
+                                            id="rab_2" min="0" placeholder="Shëno rabatin 2" step=".01" />
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Col-->
+                                <!--begin::Col-->
+                                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                    <!--begin::Input group-->
+                                    <div class="d-flex flex-column mb-3 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                            <span>Marzha e fitimit</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <p id="mazh-supply-error" class="text-danger show-errors-supply mb-0"></p>
+                                        <!--begin::Input-->
+                                        <input type="number" class="form-control form-control-solid" name="" value="0"
+                                            id="mazh" min="0" placeholder="Shëno marzhën e fitimit" step=".01" />
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Col-->
+                                <!--begin::Col-->
+                                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                    <!--begin::Input group-->
+                                    <div class="d-flex flex-column mb-3 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                            <span>Çmimi me pakicë</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <p id="price_few-supply-error" class="text-danger show-errors-supply mb-0"></p>
+                                        <!--begin::Input-->
+                                        <input type="number" class="form-control form-control-solid" name="" value="0"
+                                            id="price_few" min="0" placeholder="Shëno çmimin me pakicë" step=".01" />
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Col-->
+                                <!--begin::Col-->
+                                <div class="d-flex justify-content-center my-3">
+                                    <button type="submit" class="btn btn-primary" id="buy_button"
+                                        style="white-space: nowrap;">Blej</button>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Contacts App- Add New Contact-->
+                </div>
+                <!--begin::Modal body-->
+            </div>
+        </div>
+    </div>
+    <!--end::Modal - payment_card-->
+    <!--begin::Modal - close_supply-->
+    <div class="modal" id="close_supply" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Mbyll furnizimin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!--begin::Modal body-->
+                <div class="modal-body ">
+                    <!--begin::Content container-->
+                    <!--begin::Contacts App- Add New Contact-->
+                    <div class="row g-7">
+                        <!--begin::Content-->
+                        <div class="col-lg-12">
+                            <!--begin::Contacts-->
+                            <div class=" card-flush mb-5" id="kt_contacts_main">
+                                <!--begin::Form-->
+                                <form id="create_outcome_form" class="form" method="" action="">
+                                    <!--begin::Row-->
+                                    <div class="row ">
+                                        <!--begin::Col-->
+                                        <div class="col-12">
+                                            <!--begin::Input group-->
+                                            <div class="d-flex flex-column mb-3 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="fs-6 fw-semibold form-label mt-3">
+                                                    <span>E paguar / E pa paguar</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <p id="paid_status-supply-error"
+                                                                        class="text-danger show-errors-supply mb-0"></p>
+                                                <!--begin::Input-->
+                                                <select class="form-select form-select-solid" id="paid_status"
+                                                    data-control="select2" data-placeholder="E paguar / E pa paguar">
+                                                    <option></option>
+                                                    <option value="true">E paguar</option>
+                                                    <option value="false">E pa paguar
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <!--end::Input group-->
+                                        </div>
+                                        <!--end::Col-->
+
+                                    </div>
+                                    <!--end::Row-->
+                                    <!--begin::Row-->
+                                    <div class="row ">
+                                        <!--begin::Col-->
+                                        <div class="col-12">
+                                            <!--begin::Input group-->
+                                            <div class="d-flex flex-column mb-3 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="fs-6 fw-semibold form-label mt-3">
+                                                    <span>Fatura</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <p id="supply_status-supply-error"
+                                                class="text-danger show-errors-supply mb-0"></p>
+                                                <!--begin::Input-->
+                                                <select class="form-select form-select-solid" id="supply_status"
+                                                    data-control="select2" data-placeholder="Fatura">
+                                                    <option></option>
+                                                    <option value="primary">Fatura primare</option>
+                                                    <option value="sekondary">Fatura sekondare
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <!--end::Input group-->
+                                        </div>
+                                        <!--end::Col-->
+                                    </div>
+                                    <!--end::Row-->
+                                </form>
+                                <!--end::Form-->
+                            </div>
+                            <!--end::Contacts-->
+                        </div>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Contacts App- Add New Contact-->
+                </div>
+                <!--begin::Modal body-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="close-supply">Mbyll furnizimin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Modal - close_supply-->
+
+    <script>
+        const toggleInput = document.getElementById('toggleInput');
+        const discountInput = document.getElementById('price_many');
+
+        toggleInput.addEventListener('change', () => {
+            if (toggleInput.checked) {
+                discountInput.classList.remove('d-none');
+            } else {
+                discountInput.classList.add('d-none')
+            }
+        });
+    </script>
+    <!--begin::Javascript-->
+    <%- include('./includes/script.ejs') %>
+
+        <!--end::Javascript-->
+        <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+        <!--begin::Custom Javascript(used for this page only)-->
+        <script src="/assets/js/utils.js"></script>
+        <%if(!supply){%>
+        <script src="/assets/js/supply/new_supply/addSupply.js"></script>
+            <% } %>
+            <%if(supply && supply.isOpen ===true){%>
+                <script src="/assets/js/supply/new_supply/addArticleInSupply.js"></script>
+                <script src="/assets/js/supply/new_supply/closeSupply.js"></script>
+                    <% } %>
+        <script src="/assets/js/supply/new_supply/article_table.js"></script>
+        <script src="/assets/js/supply/new_supply/supply_table.js"></script>
+        <script src="/assets/js/supply/new_supply/calDiscount.js"></script>
+
+
+        <!--end::Javascript-->
+</body>
+<!--end::Body-->
+
+</html>

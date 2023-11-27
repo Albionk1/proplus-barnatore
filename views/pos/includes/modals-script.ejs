@@ -1,0 +1,426 @@
+<!--begin::Modal - Expenses-->
+<div class="modal fade" id="expenses" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <!--begin::Modal content-->
+        <div class="modal-content modal-rounded">
+            <!--begin::Modal header-->
+
+            <div class="modal-header p-1 d-flex justify-content-between">
+                <h2 class="ps-2">Shpenzimet</h2>
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                fill="currentColor" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body">
+                <!--begin::Content container-->
+                <!--begin::Container-->
+                <div id="kt_content_container" class="container-fluid">
+                    <!--begin::Card body-->
+                    <form method="" action="">
+                        <!--begin::Tab Content-->
+                        <div class="tab-content">
+                            <!--begin::Tab panel-->
+                            <div class=" p-0 tab-pane fade show active">
+                                <!--begin::Content wrapper-->
+                                <div class="d-flex flex-column flex-column-fluid card">
+                                    <!--begin::Card body-->
+                                    <div class="card-body border-top pt-5">
+                                        <!--begin::Input group-->
+
+                                        <!--begin::Row-->
+                                        <div class="row ">
+                                            <!--begin::Col-->
+                                            <div class="col-6">
+                                                <!--begin::Input group-->
+                                                <div class="d-flex flex-column mb-2 fv-row">
+                                                    <!--begin::Label-->
+                                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                                        <span>Kategoria</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                <p id="category-error-expense" class=" show-errors-expense mb-0 text-danger"></p>
+                                                    <!--begin::Input-->
+                                                    <select name="Kategoria1" aria-label="Kategoria1" id="category"
+                                                        data-control="select2" data-placeholder="Zgjedh kategorin e shpenzimit"
+                                                        class="form-select mb-2">
+                                                        <option></option>
+                                                        <% for(let i =0;i<expenseCategory.length;i++){%>
+                                                        <option value="<%=expenseCategory[i]._id  %>"><%=expenseCategory[i].name  %></option>
+                                                            <% } %>
+                                                    </select>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+                                            <!--end::Col-->
+                                            <div
+                                                class="col-2 d-flex justify-content-start align-items-start mt-lg-13 mt-14">
+                                                <!-- Button to Open Inner Modal -->
+                                                <i class="fas fa-plus-circle fs-2x text-primary"
+                                                    data-bs-target="#add-category-expenses" data-bs-toggle="modal"
+                                                    style="cursor: pointer;"></i>
+                                            </div>
+                                            <!--begin::Col-->
+                                            <div class="col-4">
+                                                <!--begin::Input group-->
+                                                <div class="d-flex flex-column mb-2 fv-row">
+                                                    <!--begin::Label-->
+                                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                                        <span>Shuma</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                <p id="amount-error-expense" class=" show-errors-expense mb-0 text-danger"></p>
+                                                    <!--begin::Input-->
+                                                    <input type="number" class="form-control form-control-solid" name="" id="amount"
+                                                        value="" placeholder="Shëno shumën" step=".01" />
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+                                            <!--end::Col-->
+                                            <div class="fv-row mb-2">
+                                                <!--begin::Label-->
+                                                <label class="col-lg-3 col-form-label fw-semibold fs-6 ">Shënim
+                                                </label>
+                                                <!--end::Label-->
+                                                <textarea class="form-control form-control-solid" name="" rows="3" id="comment"
+                                                    placeholder="Shënim"></textarea>
+                                                <!--end::Input group-->
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-center">
+                                                <button type="button" class="btn btn-primary" id="addExpenseButton">Ruaj</button>
+                                            </div>
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                </div>
+                                <!--end::Toolbar container-->
+                            </div>
+                            <!--end::Toolbar-->
+                        </div>
+                        <!--end::Content wrapper-->
+                    </form>
+                    <!--end::Tab panel-->
+
+                    <!--begin::Products-->
+                    <div class="card card-flush mt-3">
+                        <!--begin::Card header-->
+                        <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                            <!--begin::Card title-->
+                            <div class="card-title">
+                                <!--begin::Search-->
+                                <div class="d-flex align-items-center position-relative my-1">
+                                    <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                    <input type="text" id="expense_table_search"
+                                        class="form-control form-control-solid w-250px ps-12" placeholder="Kërko..." />
+                                </div>
+                                <!--end::Search-->
+                            </div>
+                            <!--end::Card title-->
+                        </div>
+                        <!--end::Card header-->
+                        <!--begin::Card body-->
+                        <div class="card-body pt-0">
+                            <div class="table-responsive">
+                                <!--begin::Table-->
+                                <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                    id="expense_table">
+                                    <thead>
+                                        <tr class="text-start text-gray-800 fw-bold fs-6 text-uppercase gs-0">
+                                            <th class="w-10px">Nr </th>
+                                            <th class="w-150px">Kategoria</th>
+                                            <th class="w-150px">Shuma</th>
+                                            <th class="w-150px">Shënim</th>
+                                            <th class="w-10px">Opsionet</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="fw-semibold text-gray-700">
+                                    </tbody>
+                                </table>
+                                <!--end::Table-->
+                            </div>
+                        </div>
+                        <!--end::Card body-->
+                    </div>
+                    <!--end::Products-->
+                </div>
+                <!--end::Container-->
+            </div>
+            <!--begin::Modal body-->
+        </div>
+    </div>
+</div>
+<!--end::Modal - Expenses-->
+<!-- Inner Modal -->
+<div class="modal fade" id="add-category-expenses" aria-hidden="true" aria-labelledby="add-category-expenses"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="add-category-expenses"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="" action="">
+                    <!--begin::Tab Content-->
+                    <div class="tab-content">
+                        <!--begin::Tab panel-->
+                        <div class=" p-0 tab-pane fade show active">
+                            <!--begin::Content wrapper-->
+                            <div class="d-flex flex-column flex-column-fluid card">
+                                <!--begin::Card body-->
+                                <div class="card-body border-top pt-5">
+                                    <!--begin::Input group-->
+                                    <!--begin::Row-->
+                                    <div class="row ">
+                                        <!--begin::Col-->
+                                        <div class="col-12">
+                                            <!--begin::Input group-->
+                                            <div class="d-flex flex-column mb-2 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="fs-6 fw-semibold form-label mt-3">
+                                                    <span>Kategoria</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <p id="name-error-category" class="mb-0 text-danger"></p>
+                                                <!--begin::Input-->
+                                                <input type="text" class="form-control form-control-solid" name="" id="category-name"
+                                                    value="" placeholder="Shëno kategorinë" />
+                                            </div>
+                                            <!--end::Input group-->
+                                            <div class="col-12 d-flex justify-content-center">
+                                                <button type="button" class="btn btn-primary" id="addCategoryName">Shto
+                                                    kategori</button>
+                                            </div>
+                                        </div>
+                                        <!--end::Col-->
+                                    </div>
+                                    <!--end::Row-->
+                                </div>
+                            </div>
+                            <!--end::Toolbar container-->
+                        </div>
+                        <!--end::Toolbar-->
+                    </div>
+                    <!--end::Content wrapper-->
+                </form>
+            </div>
+            <!-- <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#expenses" data-bs-toggle="modal">Kthehu</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!--begin::Modal - gift_card-->
+<div class="modal fade" id="gift_card" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!--begin::Modal content-->
+        <div class="modal-content modal-rounded">
+            <!--begin::Modal header-->
+
+            <div class="modal-header p-1 d-flex justify-content-between">
+                <h2 class="ps-2">Karta e lojalitetit</h2>
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                fill="currentColor" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body">
+                <!--begin::Content container-->
+                <!--begin::Contacts App- Add New Contact-->
+                <div class="row g-7">
+                    <!--begin::Content-->
+                    <div class="col-lg-8 col-12">
+                        <!--begin::Contacts-->
+                        <div class="card-flush mb-5" id="kt_contacts_main">
+                            <!--begin::Form-->
+                            <form id="add-loyaltycard-user" class="form">
+                                <!--begin::Row-->
+                                <div class="row">
+                                    <!--begin::Col-->
+                                    <div class="col-lg-12">
+                                        <div class="row mb-6">
+                                            <div class="col-6">
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-3">
+                                                    <!--begin::Label-->
+                                                    <label class=" col-form-label fw-semibold fs-6">Kodi i
+                                                        lojalitetit:</label>
+                                                    <!--end::Label-->
+                                                    <p id="code-error" class="show-errors-card mb-0 text-danger"></p>
+                                                    <input type="text" class="form-control form-control-solid" name=""
+                                                        id="code" />
+                                                    <!--end::Input group-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+                                            <div class="col-6">
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-3">
+                                                    <!--begin::Label-->
+                                                    <label class=" col-form-label fw-semibold fs-6">Emri i
+                                                        blerësit:</label>
+                                                    <!--end::Label-->
+                                                    <p id="name-error" class="show-errors-card mb-0 text-danger"></p>
+                                                    <input type="text" class="form-control form-control-solid" name=""
+                                                        id="name" />
+                                                    <!--end::Input group-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+                                            <div class="col-6">
+                                                <!--begin::Input group-->
+                                                <div class="fv-row">
+                                                    <!--begin::Label-->
+                                                    <label
+                                                        class="col-lg-3 col-form-label fw-semibold fs-6">Email(opsionale):</label>
+                                                    <!--end::Label-->
+                                                    <p id="email-error" class="show-errors-card mb-0 text-danger"></p>
+                                                    <input type="email" class="form-control form-control-solid" name=""
+                                                        id="email" />
+                                                    <!--end::Input group-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+                                            <div class="col-6">
+                                                <!--begin::Input group-->
+                                                <div class="fv-row">
+                                                    <!--begin::Label-->
+                                                    <label class=" col-form-label fw-semibold fs-6">Nr
+                                                        telefonit:</label>
+                                                    <!--end::Label-->
+                                                    <p id="phone_number-error" class="show-errors-card mb-0 text-danger"></p>
+                                                    <input type="number" class="form-control form-control-solid" name=""
+                                                        id="phone_number" />
+                                                    <!--end::Input group-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Row-->
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Contacts-->
+                    </div>
+                    <!--end::Content-->
+                    <div class="col-lg-4 col-12 d-flex justify-content-center align-items-center gift-card-qrcode mt-0" id="qr-code">
+                        
+                    </div>
+                    <div class="col-12 mt-3">
+                        <div class="row">
+                            <div class="col-sm-6 mt-2">
+                                <!--begin::Button-->
+                                <button type="reset" class="btn btn-light w-100" id="reset_all">Anulo</button>
+                                <!--end::Button-->
+                            </div>
+                            <div class="col-sm-6 mt-2">
+                                <!--begin::Button-->
+                                <button type="submit" class="btn btn-primary w-100" id="add-card-button">Anëtarëso</span>
+                                </button>
+                                <!--end::Button-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--begin::Checkboxes-->
+                    <div class="d-flex align-items-center justify-content-end">
+                        <!--begin::Checkbox-->
+                        <label class="form-check form-check-custom form-check-solid me-10">
+                            <input class="form-check-input h-20px w-20px" type="checkbox" name="printo[]" id="print-qr">
+                            <span class="form-check-label fw-semibold text-dark fs-5">Shtyp QR CODE
+                            </span>
+                        </label>
+                        <!--end::Checkbox-->
+                    </div>
+                    <!--end::Checkboxes-->
+                </div>
+                <!--end::Contacts App- Add New Contact-->
+            </div>
+            <!--begin::Modal body-->
+        </div>
+    </div>
+</div>
+<!--end::Modal - gift_card-->
+<!--begin::Scrolltop-->
+<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+    <i class="ki-duotone ki-arrow-up">
+        <span class="path1"></span>
+        <span class="path2"></span>
+    </i>
+</div>
+<!--end::Scrolltop-->
+<script src="/assets/js/jquery.calculator.min.js"></script>
+<script>
+    $('#cccc').calculator({
+        layout: ['_%+-CABS', '_7_8_9_/', '_4_5_6_*', '_1_2_3_-', '_0_._=_+'],
+        showFormula: true,
+        // Add a keydown event listener to the calculator input
+        onkeydown: function (event, options, currentValue) {
+            // Check if the pressed key is Enter (key code 13)
+            if (event.keyCode === 13) {
+                // Simulate a click on the "=" button
+                $('[data-keystroke="_="]')[0].click();
+            }
+        }
+    });
+    $('.calc').click(function (e) {
+        e.stopPropagation();
+    });
+</script>
+<script src="/assets/js/real-time.js"></script>
+
+<!--begin::Javascript-->
+<script>var hostUrl = "/assets/";</script>
+<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+<script src="/assets/plugins/global/plugins.bundle.js"></script>
+<script src="/assets/js/scripts.bundle.js"></script>
+<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<!--end::Global Javascript Bundle-->
+<script src="/assets/js/widgets.bundle.js"></script>
+<script src="/assets/js/custom/widgets.js"></script>
+<script src="/assets/js/plugins.min.js"></script>
+<script src="/assets/js/keyboard.js"></script>
+<script src="/assets/js/utils.js"></script>
+<script src="/assets/js/qrcode.min.js"></script>
+<script src="/assets/js/card/addCard.js"></script>
+<script src="/assets/js/pos/expence/addCategory.js"></script>
+<script src="/assets/js/pos/expence/addExpense.js"></script>
+<script src="/assets/js/pos/expence/expense_table.js"></script>
+
+
+<script>
+    $("#kt_datepicker_1").flatpickr();
+</script>

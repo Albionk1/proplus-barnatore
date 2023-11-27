@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<!--
+Author: Thana Dev 2023
+Product Name: Services
+-->
+<html lang="en">
+
+<!--begin::Head-->
+
+<head><!--Begin Meta links-->
+    <%- include ('includes/meta-links.ejs') %>
+        <!--End Meta links-->
+        <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+        <script src="/assets/js/jquery.plugin.min.js"></script>
+        <script src="/assets/js/barcode-camera.js"></script>
+
+
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+
+<body id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true"
+    data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true"
+    data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true"
+    data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
+    <!--begin::Theme mode setup on page load-->
+    <script>var defaultThemeMode = "light"; var themeMode; if (document.documentElement) { if (document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if (localStorage.getItem("data-bs-theme") !== null) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+    <!--end::Theme mode setup on page load-->
+    <!--begin::App-->
+    <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+        <!--begin::Page-->
+        <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+            <!--begin::Header-->
+            <%- include('./includes/header.ejs') %>
+                <!--end::Header-->
+                <!--begin::Wrapper-->
+                <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+                    <!--begin::Sidebar-->
+                    <%- include('./includes/sidebar.ejs') %>
+                        <!--end::Sidebar-->
+                        <!--begin::Main-->
+                        <div class="app-main flex-column flex-row-fluid mt-10" id="kt_app_main">
+                            <!--begin::Content wrapper-->
+                            <div class="d-flex flex-column flex-column-fluid">
+                                <!--begin::Content-->
+                                <div id="kt_app_content" class="app-content flex-column-fluid">
+                                    <!--begin::Content container-->
+                                    <div id="kt_app_content_container" class="app-container container-fluid">
+
+
+
+
+                                        <div class="row mt-3 mt-lg-0">
+
+                                            <div class="col-xxl-6 d-none">
+                                                <button class="btn btn-primary" id="camera_barcode_scanner"><i
+                                                        class="bi bi-camera fs-2x"></i></button>
+                                                <div id="barcode">
+                                                    <video id="barcodevideo" autoplay></video>
+                                                    <canvas id="barcodecanvasg"></canvas>
+                                                </div>
+                                                <canvas id="barcodecanvas"></canvas>
+                                            </div>
+                                            <div class="col-xxl-12">
+                                                <!--begin::Repeater-->
+                                                <div id="kt_docs_repeater_basic"
+                                                    style="height: 500px; overflow-y: auto; width: 100%;">
+                                                    <!--begin::Form group-->
+                                                    <div class="form-group">
+                                                        <div data-repeater-list="kt_docs_repeater_basic">
+                                                            <div data-repeater-item>
+                                                                <div class="form-group row mb-3">
+                                                                    <div class="col-md-3">
+                                                                        <label class="form-label">Barkodi:</label>
+                                                                        <input type="text"
+                                                                            class="form-control mb-2 mb-md-0"
+                                                                            name="barcode" placeholder="" />
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <label class="form-label">Emri:</label>
+                                                                        <input type="text"
+                                                                            class="form-control mb-2 mb-md-0"
+                                                                            name="name" placeholder="" />
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <label class="form-label">Sasia</label>
+                                                                        <input type="text" min="0" name="qty"
+                                                                            class="form-control mb-2 mb-md-0" step="1"
+                                                                            placeholder="" />
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <a href="javascript:;" data-repeater-delete
+                                                                            class="btn btn-sm btn-light-danger mt-3 mt-md-8">
+                                                                            <i class="ki-duotone ki-trash fs-5"><span
+                                                                                    class="path1"></span><span
+                                                                                    class="path2"></span><span
+                                                                                    class="path3"></span><span
+                                                                                    class="path4"></span><span
+                                                                                    class="path5"></span></i>
+                                                                            Fshij
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Form group-->
+
+                                                    <!--begin::Form group-->
+                                                    <div class="form-group mt-5">
+                                                        <a href="javascript:;" data-repeater-create
+                                                            class="btn btn-success">
+                                                            <i class="ki-duotone ki-plus fs-3"></i>
+                                                            Shto
+                                                        </a>
+                                                    </div>
+                                                    <!--end::Form group-->
+
+                                                </div>
+                                                <!--end::Repeater-->
+                                                <div class="form-group mt-5 mb-2">
+                                                    <button class="btn btn-primary" id="close-count">
+                                                        Mbyll numërimin
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!--begin::Card-->
+                                        <div class="card">
+                                            <!--begin::Card header-->
+                                            <div class="card-header border-0 pt-6">
+                                                <!--begin::Card title-->
+                                                <div class="card-title">
+                                                    <!--begin::Search-->
+                                                    <div class="d-flex align-items-center position-relative my-1">
+                                                        <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+                                                            <span class="path1"></span>
+                                                            <span class="path2"></span>
+                                                        </i>
+                                                        <input type="text" id="count_table_search"
+                                                            class="form-control form-control-solid w-250px ps-13"
+                                                            placeholder="Kërko..." />
+                                                    </div>
+                                                    <!--end::Search-->
+                                                </div>
+                                                <!--begin::Card title-->
+                                            </div>
+                                            <!--end::Card header-->
+                                            <!--begin::Card body-->
+                                            <div class="card-body pt-0">
+                                                <div class="table-responsive">
+                                                    <!--begin::Table-->
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                        id="count_table">
+                                                        <thead>
+                                                            <tr
+                                                                class="text-start text-gray-800 fw-bold fs-6 text-uppercase gs-0">
+                                                                <th class="w-10px">Nr </th>
+                                                                <th class="w-100px">Emri i Artikullit</th>
+                                                                <th class="w-100px">Sasia</th>
+                                                                <th class="w-1px text-center">Opsione</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="fw-semibold text-gray-700">
+                                                        </tbody>
+                                                    </table>
+                                                    <!--end::Table-->
+                                                </div>
+                                            </div>
+                                            <!--end::Card body-->
+                                        </div>
+                                        <!--end::Card-->
+                                    </div>
+                                    <!--end::Content container-->
+                                </div>
+                                <!--end::Content-->
+                            </div>
+                            <!--end::Content wrapper-->
+                            <!--begin::Footer-->
+                            <%- include('./includes/footer.ejs') %>
+                                <!--end::Footer-->
+                        </div>
+                        <!--end:::Main-->
+                </div>
+                <!--end::Wrapper-->
+        </div>
+        <!--end::Page-->
+    </div>
+    <!--end::App-->
+
+    <script type="text/javascript">
+
+        var sound = new Audio("/assets/media/barcode.wav");
+
+        $("#camera_barcode_scanner").on('click', function () {
+
+            barcode.config.start = 0.1;
+            barcode.config.end = 0.9;
+            barcode.config.video = '#barcodevideo';
+            barcode.config.canvas = '#barcodecanvas';
+            barcode.config.canvasg = '#barcodecanvasg';
+            barcode.setHandler(function (barcode) {
+                let count = []
+                let match
+                const foundArticle = articles.find(item => item.barcode === barcode);
+                if (document.querySelectorAll("[data-repeater-item]").length > 0) {
+                    count = $('#kt_docs_repeater_basic').repeaterVal().kt_docs_repeater_basic
+                    match = count.find(item => item.barcode === barcode);
+                }
+                if (!match) {
+                    document.querySelector(`[data-repeater-create=""]`).click()
+                    const length = document.querySelectorAll("[data-repeater-item]").length - 1
+                    const repeater = document.querySelectorAll("[data-repeater-item]")[length]
+                    const barcode = repeater.querySelector(`input[name="kt_docs_repeater_basic[${length}][barcode]"]`).value = foundArticle.barcode
+                    const name = repeater.querySelector(`input[name="kt_docs_repeater_basic[${length}][name]"]`).value = foundArticle.name
+                    const qty = repeater.querySelector(`input[name="kt_docs_repeater_basic[${length}][qty]"]`).value = '1'
+                }
+                if (match) {
+                    let inputElements = document.querySelectorAll('input');
+                    let input
+                    for (let i = 0; i < inputElements.length; i++) {
+                        if (inputElements[i].value === match.barcode || inputElements[i].value === match.name) {
+                            input = inputElements[i];
+                            break;
+                        }
+                    }
+                    const nameInput = input.getAttribute('name').split(`[`)
+                    nameInput[1] = `[` + nameInput[1]
+                    nameInput[2] = `[qty]`
+                    document.querySelector(`[name="${nameInput.join('')}"]`).value = parseInt(document.querySelector(`[name="${nameInput.join('')}"]`).value) + 1
+                }
+            });
+            barcode.init();
+
+            $('#result').bind('DOMSubtreeModified', function (e) {
+                sound.play();
+            });
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#kt_docs_repeater_basic').repeater({
+                initEmpty: true,
+                defaultValues: {
+                    'text-input': 'foo'
+                },
+                show: function () {
+                    $(this).slideDown();
+                },
+                hide: function (deleteElement) {
+                    $(this).slideUp(deleteElement);
+                }
+            });
+        });
+
+
+    </script>
+    <!--begin::Javascript-->
+    <%- include('./includes/script.ejs') %>
+        <!--end::Javascript-->
+        <script src="/assets/plugins/custom/formrepeater/formrepeater.bundle.js"></script>
+
+        <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+        <!--begin::Custom Javascript(used for this page only)-->
+        <script src="/assets/js/utils.js"></script>
+        <script src="/assets/js/stock/count/getArticles.js"></script>
+        <script src="/assets/js/stock/count/countArticle.js"></script>
+        <script src="/assets/js/stock/count/count_table.js"></script>
+        <!--end::Javascript-->
+
+</body>
+<!--end::Body-->
+
+</html>

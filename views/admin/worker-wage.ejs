@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<!--
+Author: Thana Dev 2023
+Product Name: Services
+-->
+<html lang="en">
+<!--begin::Head-->
+
+<head>
+    <!--Begin Meta links-->
+    <%- include ('includes/meta-links.ejs') %>
+        <!--End Meta links-->
+        <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+
+<body onload="startClock()" id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true"
+    data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true"
+    data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true"
+    data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
+    <!--begin::Theme mode setup on page load-->
+
+    <!--end::Theme mode setup on page load-->
+    <!--begin::App-->
+    <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+        <!--begin::Page-->
+        <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+            <!--begin::Header-->
+            <%- include('./includes/header.ejs') %>
+                <!--end::Header-->
+                <!--begin::Wrapper-->
+                <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+                    <!--begin::Sidebar-->
+                    <%- include('./includes/sidebar.ejs') %>
+                        <!--end::Sidebar-->
+                        <!--begin::Content-->
+                        <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+                            <!--begin::Post-->
+                            <div class="post d-flex flex-column-fluid" id="kt_post">
+                                <!--begin::Container-->
+                                <div id="kt_content_container" class="container-fluid">
+                                    <div id="kt_app_toolbar" class="app-toolbar py-4">
+                                        <!--begin::Toolbar container-->
+                                        <div id="kt_app_toolbar_container" class="d-flex flex-stack flex-wrap w-100">
+                                            <!--begin::Toolbar wrapper-->
+                                            <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+                                                <div class="col-sm-3 mt-5">
+                                                    <button id="" data-bs-toggle="modal" data-bs-target="#open_month"
+                                                        class="btn btn-primary w-100">
+                                                        <span class="indicator-label">Hap
+                                                            muajin</span>
+                                                    </button>
+                                                </div>
+                                                <!--begin::Card body-->
+                                                <div class="row w-100">
+                                                    <!--begin::Col-->
+                                                    <div class="col-xl-3 col-lg-6 col-md-3 col-sm-6">
+                                                        <!--begin::Stat-->
+                                                        <div
+                                                            class="d-flex flex-column align-items-center min-w-125px py-3 px-4 me-6 mb-3 text-white bg-primary">
+                                                            <!-- Icon -->
+                                                            <i class="fas fa-shopping-cart text-white fs-2x"></i>
+                                                            <!-- Label -->
+                                                            <div class="fw-semibold fs-3 text-white py-3">Gjithsej
+                                                                pagat: </div>
+                                                            <!-- Label -->
+                                                            <div class="fw-semibold fs-3 text-white">
+                                                                <span id="show_total_wage">0 </span>€
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Stat-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-xl-3 col-lg-6 col-md-3 col-sm-6">
+                                                        <!--begin::Stat-->
+                                                        <div
+                                                            class="d-flex flex-column align-items-center min-w-125px py-3 px-4 me-6 mb-3 text-white bg-success">
+                                                            <!-- Icon -->
+                                                            <i class="fas fa-chart-line text-white fs-2x"></i>
+                                                            <!-- Label -->
+                                                            <div class="fw-semibold fs-3 text-white py-3">Pagat
+                                                                e rregullta:</div>
+                                                            <!-- Label -->
+                                                            <div class="fw-semibold fs-3 text-white">
+                                                                <span id="show_total_regular">0 </span>€
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Stat-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-xl-3 col-lg-6 col-md-3 col-sm-6">
+                                                        <!--begin::Stat-->
+                                                        <div
+                                                            class="d-flex flex-column align-items-center min-w-125px py-3 px-4 me-6 mb-3 text-white bg-success">
+                                                            <!-- Icon -->
+                                                            <i class="fas fa-chart-line text-white fs-2x"></i>
+                                                            <!-- Label -->
+                                                            <div class="fw-semibold fs-3 text-white py-3">Pagat
+                                                                e parregullta:</div>
+                                                            <!-- Label -->
+                                                            <div class="fw-semibold fs-3 text-white">
+                                                                <span id="show_total_unregular">0 </span>€
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Stat-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-xl-3 col-lg-6 col-md-3 col-sm-6">
+                                                        <!--begin::Stat-->
+                                                        <div
+                                                            class="d-flex flex-column align-items-center min-w-125px py-3 px-4 me-6 mb-3 text-white bg-danger">
+                                                            <!-- Icon -->
+                                                            <i class="fas fa-coins text-white fs-2x"></i>
+                                                            <!-- Label -->
+                                                            <div class="fw-semibold fs-3 text-white py-3">Shuma
+                                                                e dhënë: <span id="show_given_wage">0 </span>€</div>
+                                                            <!-- Label -->
+                                                            <div class="fw-semibold fs-3 text-white">Shuma
+                                                                e mbetur: <span id="show_ungiven_wage">0 </span>€</div>
+                                                        </div>
+                                                        <!--end::Stat-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
+
+                                                <!--begin::Row-->
+                                                <div class="card w-100">
+                                                    <div class="card-body w-100">
+                                                        <div class="row w-100">
+                                                            <!--begin::Col-->
+                                                            <div class="col-md-2">
+                                                                <!--begin::Input group-->
+                                                                <div class="d-flex flex-column mb-7 fv-row">
+                                                                    <!--begin::Label-->
+                                                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                                                        <span>Muaji</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <select name="Muaji" aria-label="Muaji" id="month-filter"
+                                                                        data-control="select2" data-placeholder="Muaji"
+                                                                        class="form-select mb-2">
+                                                                        <option></option>
+                                                                        <option value="january">Janar</option>
+                                                                        <option value="february">Shkurt</option>
+                                                                        <option value="march">Mars</option>
+                                                                        <option value="april">Prill</option>
+                                                                        <option value="may">Maj</option>
+                                                                        <option value="june">Qershor</option>
+                                                                        <option value="july">Korrik</option>
+                                                                        <option value="august">Gusht</option>
+                                                                        <option value="september">Shtator</option>
+                                                                        <option value="october">Tetor</option>
+                                                                        <option value="november">Nëntor</option>
+                                                                        <option value="december">Dhjetor</option>
+
+                                                                    </select>
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                            </div>
+                                                            <!--end::Col-->
+                                                            <!--begin::Col-->
+                                                            <div class="col-md-2">
+                                                                <!--begin::Input group-->
+                                                                <div class="d-flex flex-column mb-7 fv-row">
+                                                                    <!--begin::Label-->
+                                                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                                                        <span>Viti</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <select name="Viti" aria-label="Viti" id="year1"
+                                                                        data-control="select2" data-placeholder="Viti" 
+                                                                        class="form-select mb-2">
+                                                                        <option></option>
+                                                                    </select>
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                            </div>
+                                                            <!--end::Col-->
+                                                            <div class="col-md-2 mt-md-11 mt-3">
+                                                                <button id="filtro-btn" type="button"
+                                                                    data-kt-contacts-type="submit"
+                                                                    class="btn btn-primary w-100">
+                                                                    <span class="indicator-label">Filtro</span>
+                                                                </button>
+                                                            </div>
+                                                            <!--end::Col-->
+                                                            <div class="col-md-3 mt-md-11 mt-3 ms-auto">
+                                                                <div class="w-100">
+                                                                    <!--begin::Select2-->
+                                                                    <select class="form-select form-select-solid"
+                                                                        data-control="select2" data-hide-search="true" id="unit"
+                                                                        data-placeholder="Zgjedh njësinë">
+                                                                        <option></option>
+                                                                       <% for(let i =0;i<unit.length;i++){%>
+                                                                        <option value="<%=unit[i]._id  %>"><%=unit[i].unit_name  %></option>
+                                                                        <% } %>
+                                                                    </select>
+                                                                    <!--end::Select2-->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end::Row-->
+                                            </div>
+                                            <!--end::Toolbar wrapper-->
+                                        </div>
+                                        <!--end::Toolbar container-->
+                                    </div>
+                                    <!--end::Toolbar-->
+                                    <!--begin::Products-->
+                                    <div class="card card-flush">
+                                        <!--begin::Card header-->
+                                        <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                            <!--begin::Card title-->
+                                            <div class="card-title">
+                                                <!--begin::Search-->
+                                                <div class="d-flex align-items-center position-relative my-1">
+                                                    <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </i>
+                                                    <input type="text" id="worker_table_search"
+                                                        class="form-control form-control-solid w-250px ps-12"
+                                                        placeholder="Kërko..." />
+                                                </div>
+                                                <!--end::Search-->
+                                            </div>
+                                            <!--end::Card title-->
+                                            <!--begin::Card toolbar-->
+                                            <div id="print" class="ms-auto"></div>
+                                            <!--end::Card toolbar-->
+                                        </div>
+                                        <!--end::Card header-->
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <!--begin::Table-->
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                    id="worker_table">
+                                                    <thead>
+                                                        <tr
+                                                            class="text-start text-gray-800 fw-bold fs-6 text-uppercase gs-0">
+                                                            <th class="w-10px">Nr </th>
+                                                            <th class="w-150px">Emri mbiemri</th>
+                                                            <th class="w-150px">Pozicioni</th>
+                                                            <th class="w-150px">Autorizimet</th>
+                                                            <th class="w-150px">Paga neto</th>
+                                                            <th class="w-150px">Paga bruto</th>
+                                                            <th class="w-150px">Data e pagesës</th>
+                                                            <th class="w-150px">Muaji</th>
+                                                            <th class="w-150px">Viti / Statusi</th>
+                                                            <th class="text-end w-100px">Opsionet</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="fw-semibold text-gray-700">
+                                                    </tbody>
+                                                </table>
+                                                <!--end::Table-->
+                                            </div>
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Products-->
+                                </div>
+                                <!--end::Container-->
+                            </div>
+                            <!--end::Post-->
+                        </div>
+                        <!--end::Content-->
+
+                        <%- include('./includes/footer.ejs') %>
+                </div>
+                <!--end::Wrapper-->
+        </div>
+        <!--end::Page-->
+    </div>
+    <!--end::App-->
+    <!--begin::Modal - payment_card-->
+    <div class="modal fade" id="card_worker" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <!--begin::Modal content-->
+            <div class="modal-content modal-rounded">
+                <!--begin::Modal header-->
+
+                <div class="modal-header p-1 d-flex justify-content-between">
+                    <h2 class="ps-2">Paga</h2>
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <!--begin::Content container-->
+                    <!--begin::Form-->
+                    <form class="form w-100" method="" action="">
+                        <!--begin::Content wrapper-->
+                        <div class="d-flex flex-column flex-column-fluid card">
+                            <!--begin::Card body-->
+                            <div class="card-body border-top pt-5">
+                                <!--begin::Row-->
+                                <div class="row">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6">
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-3 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                <span>Muaji</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <p id="month-wage-error" class="show-errors-wage mb-0 text-danger"></p>
+                                            <!--begin::Input-->
+                                            <select name="Muaji" aria-label="Muaji" data-control="select2" id="month-salary"
+                                                data-placeholder="Muaji" class="form-select mb-2">
+                                                <option></option>
+                                                <option value="january">Janar</option>
+                                                <option value="february">Shkurt</option>
+                                                <option value="march">Mars</option>
+                                                <option value="april">Prill</option>
+                                                <option value="may">Maj</option>
+                                                <option value="june">Qershor</option>
+                                                <option value="july">Korrik</option>
+                                                <option value="august">Gusht</option>
+                                                <option value="september">Shtator</option>
+                                                <option value="october">Tetor</option>
+                                                <option value="november">Nëntor</option>
+                                                <option value="december">Dhjetor</option>
+                                            </select>
+                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6">
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-3 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                <span>Viti</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <p id="year-wage-error" class="show-errors-wage mb-0 text-danger"></p>
+                                            <select name="Viti" aria-label="Viti" data-control="select2" id="year"
+                                                data-placeholder="Viti" class="form-select mb-2">
+                                            <option></option>
+                                            </select>
+                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6">
+                                        <!--begin::Stat-->
+                                        <div class=" min-w-125px py-3 px-4 me-6 mb-3 text-white bg-primary">
+                                            <!--begin::Label-->
+                                            <div class="fw-semibold fs-5 text-white pb-3">Minuset
+                                                : <span id="show-debt">0 </span>€
+                                            </div>
+                                            <!--end::Label-->
+                                        </div>
+                                        <!--end::Stat-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6">
+                                        <!--begin::Stat-->
+                                        <div class=" min-w-125px py-3 px-4 me-6 mb-3 text-white bg-primary">
+                                            <!--begin::Label-->
+                                            <div class="fw-semibold fs-5 text-white pb-3">Neto:<span id="show-neto-salary">0 </span>€
+                                            </div>
+                                            <!--end::Label-->
+                                            <!--begin::Label-->
+                                            <div class="fw-semibold fs-5 text-white pb-3">Bruto :
+                                                <span id="show-bruto-salary">0 </span>€
+                                            </div>
+                                            <!--end::Label-->
+                                        </div>
+                                        <!--end::Stat-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-12">
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column fv-row">
+                                            <!--begin::Label-->
+                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                <span>Paga pas minuseve</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <p id="salary_after_debt-wage-error" class="show-errors-wage mb-0 text-danger"></p>
+                                            <!--begin::Input-->
+                                            <input type="number" class="form-control form-control-solid" name="" value="" id="salary_after_debt"
+                                                placeholder="Shëno pagën pas minuseve" step=".01" readonly/>
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-12">
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column fv-row">
+                                            <!--begin::Label-->
+                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                <span>Paga e dhënë</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <p id="salary-wage-error" class="show-errors-wage mb-0 text-danger"></p>
+                                            <!--begin::Input-->
+                                            <input type="number" class="form-control form-control-solid" name="" value="" id="salary"
+                                                placeholder="Shëno pagën e dhënë" step=".01" />
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-12">
+                                        <!--begin::Input group-->
+                                        <div class="fv-row mb-7">
+                                            <!--begin::Label-->
+                                            <label class="col-lg-3 col-form-label fw-semibold fs-6 ">Koment
+                                            </label>
+                                            <!--end::Label-->
+                                            <p id="comment-wage-error" class="show-errors-wage mb-0 text-danger"></p>
+                                            <textarea class="form-control form-control-solid" name="" rows="3" id="comment"
+                                                placeholder="Shëno koment"></textarea>
+                                            <!--end::Input group-->
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <!--begin::Checkbox-->
+                                            <label class="form-check form-check-custom form-check-solid me-10">
+                                                <input class="form-check-input h-20px w-20px" type="checkbox"
+                                                    name="printo[]" id="print">
+                                                <span class="form-check-label fw-semibold text-dark fs-5">Printo
+                                                    dëftesën e pagës</span>
+                                            </label>
+                                            <!--end::Checkbox-->
+                                        </div>
+                                        <button id="payWorker" type="button" data-kt-contacts-type="submit"
+                                            class="btn btn-primary">
+                                            <span class="indicator-label">Pagesa</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!--end::Row-->
+                            </div>
+                        </div>
+
+                    </form>
+                    <!--end::Form-->
+                </div>
+                <!--begin::Modal body-->
+            </div>
+        </div>
+    </div>
+    <!--end::Modal - payment_card-->
+    <!--begin::Modal - payment_card-->
+    <div class="modal fade" id="open_month" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <!--begin::Modal content-->
+            <div class="modal-content modal-rounded">
+                <!--begin::Modal header-->
+
+                <div class="modal-header p-1 d-flex justify-content-between">
+                    <h2 class="ps-2">Hap muajin</h2>
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <!--begin::Content container-->
+                    <!--begin::Form-->
+           
+                        <!--begin::Content wrapper-->
+                        <div class="d-flex flex-column flex-column-fluid card">
+                            <!--begin::Card body-->
+                            <div class="card-body border-top pt-5">
+                                <!--begin::Row-->
+                                <div class="row">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6">
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-7 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                <span>Muaji</span>
+                                            </label>
+                                            <p id="month-month-error" class="show-errors-month mb-0 text-danger"></p>
+                                            <!--end::Label--
+                                            <!--begin::Input-->
+                                            <select name="Muaji" aria-label="Muaji" data-control="select2" id="open-month"
+                                                data-placeholder="Muaji" class="form-select mb-2">
+                                                <option></option>
+                                                <option value="january">Janar</option>
+                                                <option value="february">Shkurt</option>
+                                                <option value="march">Mars</option>
+                                                <option value="april">Prill</option>
+                                                <option value="may">Maj</option>
+                                                <option value="june">Qershor</option>
+                                                <option value="july">Korrik</option>
+                                                <option value="august">Gusht</option>
+                                                <option value="september">Shtator</option>
+                                                <option value="october">Tetor</option>
+                                                <option value="november">Nëntor</option>
+                                                <option value="december">Dhjetor</option>
+
+                                            </select>
+                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6">
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-7 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                <span>Viti</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <p id="year-month-error" class="show-errors-month mb-0 text-danger"></p>
+                                            <select name="Viti" aria-label="Viti" data-control="select2" id="year2"
+                                                data-placeholder="Viti" class="form-select mb-2">
+                                                <option></option>
+                                            </select>
+                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <button id="openMonthButton" type="button" 
+                                            class="btn btn-primary w-100">
+                                            <span class="indicator-label">Hap muajin</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!--end::Row-->
+                            </div>
+                        </div>
+
+                    
+                    <!--end::Form-->
+                </div>
+                <!--begin::Modal body-->
+            </div>
+        </div>
+    </div>
+    <!--end::Modal - payment_card-->
+    <!--begin::Javascript-->
+    <%- include('./includes/script.ejs') %>
+
+        <!--end::Javascript-->
+        <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+        <!--begin::Custom Javascript(used for this page only)-->
+        <script src="/assets/js/custom/apps/ecommerce/customers/listing/search/listing.js"></script>
+<script src="/assets/js/utils.js"></script>
+<script src="/assets/js/worker/wages/openMonth.js"></script>
+<script src="/assets/js/worker/wages/worker_wages_table.js"></script>
+<script src="/assets/js/worker/wages/payWorker.js"></script>
+<script src="/assets/js/worker/wages/getWorkersDetails.js"></script>
+        <!--end::Javascript-->
+</body>
+<!--end::Body-->
+
+</html>

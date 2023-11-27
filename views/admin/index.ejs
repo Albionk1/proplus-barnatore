@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!--
+Author: Thana Dev 2023
+Product Name: Services
+-->
+<html lang="en">
+
+<!--begin::Head-->
+
+<head><!--Begin Meta links-->
+  <%- include ('includes/meta-links.ejs') %>
+    <!--End Meta links-->
+    <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+
+<body onload="startClock()" id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true"
+  data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true"
+  data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true"
+  data-kt-app-toolbar-enabled="true" class="app-default">
+  <!--begin::Theme mode setup on page load-->
+  <script>var defaultThemeMode = "light"; var themeMode; if (document.documentElement) { if (document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if (localStorage.getItem("data-bs-theme") !== null) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+  <!--end::Theme mode setup on page load-->
+  <!--begin::App-->
+  <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+    <!--begin::Page-->
+    <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+      <!--begin::Header-->
+      <%- include('./includes/header.ejs') %>
+        <!--end::Header-->
+        <!--begin::Wrapper-->
+        <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+          <!--begin::Sidebar-->
+          <%- include('./includes/sidebar.ejs') %>
+            <!--end::Sidebar-->
+            <!--begin::Main-->
+            <div class="app-main flex-column flex-row-fluid mt-10" id="kt_app_main">
+              <!--begin::Content wrapper-->
+              <div class="d-flex flex-column flex-column-fluid">
+                <!--begin::Content-->
+                <div id="kt_app_content" class="app-content flex-column-fluid">
+                  <div id="kt_content_container" class="container-fluid">
+                    <h1 class="text-center mb-2">Shitjet ditore <span><%=moment().locale('sq').format('l')%></span></h1>
+                    <div class="row">
+                      <div class="col-xl-8 mb-10">
+                        <!--begin::Chart widget 15-->
+                        <div class="card card-flush h-400px">
+                          <!--begin::Header-->
+                          <div class="card-header pt-7">
+                            <!--begin::Title-->
+                            <h3 class="card-title align-items-start flex-column">
+                              <span class="card-label fw-bold text-dark">Shitjet sipas njësive</span>
+                            </h3>
+                            <!--end::Title-->
+                          </div>
+                          <!--end::Header-->
+                          <!--begin::Body-->
+                          <div class="card-body pt-5">
+                            <!--begin::Chart container-->
+                            <div id="saleByunit" class="min-h-auto ps-4 pe-6 mb-3 h-100"></div>
+                            <!--end::Chart container-->
+                          </div>
+                          <!--end::Body-->
+                        </div>
+                        <!--end::Chart widget 15-->
+                        <section class="users mb-10">
+                          <div class="row">
+                            <%for(let i =0;i<arc.length;i++){%>
+                            <div class="col-sm-6 mt-5">
+                              <div class="card">
+                                <div class="card-body">
+                                  <a data-bs-toggle="modal" data-bs-target="#user_<%=arc[i]._id%>"
+                                    class="d-flex align-items-center" style="cursor: pointer;">
+                                    <!--begin::Avatar-->
+                                    <div class="symbol symbol-50px me-5">
+                                      <img src="assets/media/avatars/300-25.jpg" class="" alt="" />
+                                    </div>
+                                    <!--end::Avatar-->
+                                    <!--begin::Text-->
+                                    <div class="flex-grow-1">
+                                      <p class="text-dark fw-bold text-hover-primary fs-6 mb-0"><%=arc[i].seller.full_name%></p>
+                                      <p class="text-dark fw-bold text-hover-primary d-block fw-bold mb-0">Hapja e arkës
+                                        <span><%=moment(arc[i].createdAt).format('l')%> - <%=moment(arc[i].createdAt).format('HH:mm')%></span>
+                                      </p>
+                                      <p class="text-dark fw-bold text-hover-primary d-block fw-bold mb-0">Njësia
+                                        <span><%=arc[i].unit.unit_name%></span>
+                                      </p>
+                                    </div>
+                                    <!--end::Text-->
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                            <%}%>
+                          </div>
+                        </section>
+                      </div>
+                      <div class="col-xl-4 d-none">
+                        <!--begin::Products-->
+                        <div class="card card-flush">
+                          <div class="row mt-4" style="padding: 0 2.25rem;">
+                            <h3>Njoftime për artikuj</h3>
+                          </div>
+                          <!--begin::Card header-->
+                          <div class="card-header align-items-center">
+
+                            <!--begin::Card title-->
+                            <div class="card-title w-100">
+                              <!--begin::Search-->
+                              <div class="d-flex align-items-center position-relative my-1 w-100">
+                                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                  <span class="path1"></span>
+                                  <span class="path2"></span>
+                                </i>
+                                <input type="text" data-kt-ecommerce-order-filter7="search"
+                                  class="form-control form-control-solid ps-12 kb-text w-100" placeholder="Kërko..." />
+                              </div>
+                              <!--end::Search-->
+                            </div>
+                            <!--end::Card title-->
+                          </div>
+                          <!--end::Card header-->
+                          <!--begin::Card body-->
+                          <div class="card-body pt-0">
+                            <div class="table-responsive">
+                              <!--begin::Table-->
+                              <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                id="kt_ecommerce_sales_table7">
+                                <thead>
+                                  <tr class="text-start text-gray-800 fw-bold fs-6 text-uppercase gs-0">
+                                    <th class="w-10px">Nr</th>
+                                    <th class="w-200px">Artikulli</th>
+                                    <th class="w-100px">Sasia aktuale</th>
+                                    <th class="w-10px">Njësia</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="fw-semibold text-gray-700">
+
+                                  <tr>
+                                    <td class="text-gray-700 text-center">
+                                      3
+                                    </td>
+                                    <td class="text-gray-700">
+                                      Golden Eagle 250mL
+                                    </td>
+                                    <td class="text-gray-700 text-center">
+                                      220
+                                    </td>
+                                    <td class="text-gray-700 text-center">
+                                      3
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <!--end::Table-->
+                            </div>
+                          </div>
+                          <!--end::Card body-->
+                        </div>
+                        <!--end::Products-->
+                      </div>
+                    </div>
+                    <!--end::Post-->
+                  </div>
+                  <!--end::Container-->
+                </div>
+                <!--end::Content container-->
+              </div>
+              <!--end::Content-->
+            </div>
+            <!--end::Content wrapper-->
+            <!--begin::Footer-->
+            <%- include('./includes/footer.ejs') %>
+              <!--end::Footer-->
+        </div>
+        <!--end:::Main-->
+    </div>
+    <!--end::Wrapper-->
+  </div>
+  <!--end::Page-->
+  </div>
+  <!--end::App-->
+  <!--begin::Modals-->
+  <!--begin::Modal - payment_card-->
+  <%for(let i =0;i<arc.length;i++){%>
+
+  <div class="modal fade" id="user_<%=arc[i]._id%>" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered modal-md">
+      <!--begin::Modal content-->
+      <div class="modal-content modal-rounded">
+        <!--begin::Modal header-->
+
+        <div class="modal-header p-1 d-flex justify-content-between">
+          <h2 class="ps-2"><%=arc[i].seller.full_name%></h2>
+          <!--begin::Close-->
+          <div class="btn btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+            <span class="svg-icon svg-icon-1">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)"
+                  fill="currentColor" />
+                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                  fill="currentColor" />
+              </svg>
+            </span>
+            <!--end::Svg Icon-->
+          </div>
+          <!--end::Close-->
+        </div>
+        <!--begin::Modal header-->
+        <!--begin::Modal body-->
+        <div class="modal-body">
+          <!--begin::Content container-->
+          <!--begin::Contacts App- Add New Contact-->
+          <div class="card card-xl-stretch mb-xl-8">
+            <!--begin::Body-->
+            <div class="card-body p-0">
+              <!--begin::Header-->
+              <div class="px-9 pt-7 card-rounded h-275px w-100 bg-primary">
+                <!--begin::Heading-->
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                  <i class="fas fa-coins text-white fs-3x"></i>
+                  <h3 class="m-0 text-white fw-bold fs-2x text-center pt-3">Për dorëzim</h3>
+                </div>
+                <!--end::Heading-->
+                <!--begin::Balance-->
+                <div class="d-flex text-center flex-column text-white pt-8">
+                  <span class="fw-bold fs-2x pt-1"><%=arc[i].totalSales?parseFloat(arc[i].startCount+arc[i].totalSales ).toFixed(2):arc[i].startCount%> €</span>
+                </div>
+                <!--end::Balance-->
+              </div>
+              <!--end::Header-->
+              <!--begin::Items-->
+              <div class="bg-body shadow-sm card-rounded mx-9 mb-9 px-6 py-9 position-relative z-index-1"
+                style="margin-top: -100px">
+                <!--begin::Item-->
+                <div class="d-flex align-items-center mb-6">
+                  <!--begin::Symbol-->
+                  <div class="symbol symbol-45px w-40px me-5">
+                    <span class="symbol-label bg-lighten">
+                      <i class="ki-duotone ki-compass fs-1">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                      </i>
+                    </span>
+                  </div>
+                  <!--end::Symbol-->
+                  <!--begin::Description-->
+                  <div class="d-flex align-items-center flex-wrap w-100">
+                    <!--begin::Title-->
+                    <div class="mb-1 pe-3 flex-grow-1">
+                      <p class="fs-5 text-gray-800 text-hover-primary fw-bold">Startimi</p>
+                    </div>
+                    <!--end::Title-->
+                    <!--begin::Label-->
+                    <div class="d-flex align-items-center">
+                      <div class="fw-bold fs-5 text-gray-800 pe-1"><%=arc[i].startCount%> €</div>
+                    </div>
+                    <!--end::Label-->
+                  </div>
+                  <!--end::Description-->
+                </div>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <div class="d-flex align-items-center mb-6">
+                  <!--begin::Symbol-->
+                  <div class="symbol symbol-45px w-40px me-5">
+                    <span class="symbol-label bg-lighten">
+                      <i class="ki-duotone ki-element-11 fs-1">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        <span class="path3"></span>
+                        <span class="path4"></span>
+                      </i>
+                    </span>
+                  </div>
+                  <!--end::Symbol-->
+                  <!--begin::Description-->
+                  <div class="d-flex align-items-center flex-wrap w-100">
+                    <!--begin::Title-->
+                    <div class="mb-1 pe-3 flex-grow-1">
+                      <p class="fs-5 text-gray-800 text-hover-primary fw-bold">Shitjet</p>
+                    </div>
+                    <!--end::Title-->
+                    <!--begin::Label-->
+                    <div class="d-flex align-items-center">
+                      <div class="fw-bold fs-5 text-gray-800 pe-1"><%=arc[i].totalSales?parseFloat(arc[i].totalSales).toFixed(2):0%> €</div>
+                    </div>
+                    <!--end::Label-->
+                  </div>
+                  <!--end::Description-->
+                </div>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <div class="d-flex align-items-center">
+                  <!--begin::Symbol-->
+                  <div class="symbol symbol-45px w-40px me-5">
+                    <span class="symbol-label bg-lighten">
+                      <i class="ki-duotone ki-document fs-1">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                      </i>
+                    </span>
+                  </div>
+                  <!--end::Symbol-->
+                  <!--begin::Description-->
+                  <div class="d-flex align-items-center flex-wrap w-100">
+                    <!--begin::Title-->
+                    <div class="mb-1 pe-3 flex-grow-1">
+                      <p class="fs-5 text-gray-800 text-hover-primary fw-bold">Për dorëzim</p>
+                    </div>
+                    <!--end::Title-->
+                    <!--begin::Label-->
+                    <div class="d-flex align-items-center">
+                      <div class="fw-bold fs-5 text-gray-800 pe-1"><%=arc[i].totalSales?parseFloat(arc[i].startCount+arc[i].totalSales ).toFixed(2):arc[i].startCount%> €</div>
+                    </div>
+                    <!--end::Label-->
+                  </div>
+                  <!--end::Description-->
+                </div>
+                <!--end::Item-->
+              </div>
+              <!--end::Items-->
+            </div>
+            <!--end::Body-->
+          </div>
+          <!--end::Contacts App- Add New Contact-->
+        </div>
+        <!--begin::Modal body-->
+      </div>
+    </div>
+  </div>
+  <%}%>
+  <!--end::Modal - payment_card-->
+  <!--end::Modals-->
+  <!--begin::Javascript-->
+  <%- include('./includes/script.ejs') %>
+    <!--end::Javascript-->
+    <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+    <!--begin::Custom Javascript(used for this page only)-->
+    <script src="/assets/js/custom/apps/ecommerce/customers/listing/search/listing-fin.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="/assets/js/utils.js"></script>
+    <script src="/assets/js/dashboard/salesByunit.js"></script>
+</body>
+<!--end::Body-->
+
+</html>

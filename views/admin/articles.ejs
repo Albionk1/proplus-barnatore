@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<!--
+Author: Thana Dev 2023
+Product Name: Services
+-->
+<html lang="en">
+<!--begin::Head-->
+
+<head>
+    <!--Begin Meta links-->
+    <%- include ('includes/meta-links.ejs') %>
+        <!--End Meta links-->
+        <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+
+<body onload="startClock()" id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true"
+    data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true"
+    data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true"
+    data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
+    <!--begin::Theme mode setup on page load-->
+
+    <!--end::Theme mode setup on page load-->
+    <!--begin::App-->
+    <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+        <!--begin::Page-->
+        <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+            <!--begin::Header-->
+            <%- include('./includes/header.ejs') %>
+                <!--end::Header-->
+                <!--begin::Wrapper-->
+                <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+                    <!--begin::Sidebar-->
+                    <%- include('./includes/sidebar.ejs') %>
+                        <!--end::Sidebar-->
+                        <!--begin::Content-->
+                        <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+                            <!--begin::Post-->
+                            <div class="post d-flex flex-column-fluid" id="kt_post">
+                                <!--begin::Container-->
+                                <div id="kt_content_container" class="container-fluid">
+                                    <div class="d-flex flex-wrap mt-10">
+                                        <a data-bs-toggle="modal" data-bs-target="#Grupet" id=""
+                                            class="btn btn-primary mt-1">
+                                            <span class="indicator-label">Grupet</span>
+                                        </a>
+                                        <a data-bs-toggle="modal" data-bs-target="#Nëngrupet" id=""
+                                            class="btn btn-primary ms-3 mt-1">
+                                            <span class="indicator-label">Nëngrupet</span>
+                                        </a>
+                                        <a data-bs-toggle="modal" data-bs-target="#Zonat" id=""
+                                            class="btn btn-primary ms-3 mt-1">
+                                            <span class="indicator-label">Zonat</span>
+                                        </a>
+                                        <a data-bs-toggle="modal" data-bs-target="#Prodhuesit" id=""
+                                            class="btn btn-primary ms-3 mt-1">
+                                            <span class="indicator-label">Prodhuesit</span>
+                                        </a>
+                                    </div>
+                                    <!--begin::Form-->
+                                    <form id="form-add-article">
+                                        <!--begin::Content wrapper-->
+                                        <div class="d-flex flex-column flex-column-fluid card">
+                                            <!--begin::Card body-->
+                                            <div class="card-body border-top pt-5">
+                                                <!--begin::Row-->
+                                                <div class="row">
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-3 col-lg-4 col-xl-3 col-sm-6">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Barkodi</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <p id="barcode-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+
+                                                            <input type="text" class="form-control form-control-solid"
+                                                                id="barcode" name="" value=""
+                                                                placeholder="Shëno barkodin" />
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-3 col-lg-4 col-xl-3 col-sm-6">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Artikulli</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <p id="name-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+
+                                                            <input type="text" class="form-control form-control-solid"
+                                                                id="name" name="" value=""
+                                                                placeholder="Shëno artikullin" />
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-3 col-lg-4 col-xl-3 col-sm-6">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Norma TVSH</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <p id="tvsh-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+                                                            <select name="TVSH" aria-label="TVSH" data-control="select2"
+                                                                id="tvsh" data-placeholder="Norma TVSH"
+                                                                class="form-select mb-2">
+                                                                <option></option>
+                                                                <option value="18">18%</option>
+                                                                <option value="8">8%</option>
+                                                                <option value="0">0%</option>
+                                                            </select>
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-3 col-lg-4 col-xl-3 col-sm-6">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Parametri shitës</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <p id="sale_type-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+
+                                                            <select name="Parametri" aria-label="Parametri"
+                                                                id="sale_type" data-control="select2"
+                                                                data-placeholder="Parametri shitës"
+                                                                class="form-select mb-2">
+                                                                <option></option>
+                                                                <option value="copë">Copë
+                                                                </option>
+                                                                <option value="kg">Kg
+                                                                </option>
+                                                                <option value="L">Liter
+                                                                </option>
+                                                            </select>
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-3 col-lg-4 col-xl-3 col-sm-6">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Sasia minimale</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <p id="min_qty-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+
+                                                            <input type="text" class="form-control form-control-solid"
+                                                                id="min_qty" name="" value=""
+                                                                placeholder="Shëno sasinë minimale" />
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-3 col-lg-4 col-xl-3 col-sm-6">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Çmimi me pakicë</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <p id="price_few-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+
+                                                            <input type="number" class="form-control form-control-solid"
+                                                                id="price_few" name="" value=""
+                                                                placeholder="Shëno çmimin me pakicë" step=".01" />
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-3 col-lg-4 col-xl-3 col-sm-6">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Çmimi me shumicë</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <p id="price_many-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+                                                            <!--begin::Input-->
+                                                            <input type="number" class="form-control form-control-solid"
+                                                                name="" value="" id="price_many"
+                                                                placeholder="Shëno çmimin me shumicë" step=".01" />
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-3 col-lg-4 col-xl-3 col-sm-6">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Çmimi i furnizimit</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <p id="price_supply-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+                                                            <!--begin::Input-->
+                                                            <input type="number" class="form-control form-control-solid"
+                                                                name="" value="" id="price_supply"
+                                                                placeholder="Shëno çmimin e furnizimit" step=".01" />
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div class="col-md-3 col-lg-4 col-xl-3 col-sm-6">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Prodhuesi</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <p id="manufacturer-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+                                                            <!--begin::Input-->
+                                                            <select name="Prodhuesi" aria-label="Prodhuesi"
+                                                                id="manufacturer" data-control="select2"
+                                                                data-placeholder="Prodhuesi" class="form-select mb-2">
+                                                                <option></option>
+                                                                <% for(let i=0;i<manufacturer.length;i++){%>
+                                                                    <option value="<%=manufacturer[i]._id  %>">
+                                                                        <%=manufacturer[i].name %>
+                                                                    </option>
+                                                                    <% } %>
+                                                            </select>
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <div
+                                                        class="form-check form-switch form-switch-sm form-check-custom form-check-solid fs-2 my-5">
+                                                        <input class="form-check-input h-25px w-40px" type="checkbox"
+                                                            value="" name="notifications" id="toggleInput">
+                                                        <label class="form-check-label text-dark" for="toggleInput">Më
+                                                            shumë detaje</label>
+                                                    </div>
+                                                    <!--begin::Col-->
+                                                    <div
+                                                        class="col-md-3 col-lg-4 col-xl-3 col-sm-6 hidden-input d-none">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Barkodi i paketimit</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <p id="barcode_package-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-solid"
+                                                                name="" value="" id="barcode_package"
+                                                                placeholder="Shëno barkodin e paketimit" />
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div
+                                                        class="col-md-3 col-lg-4 col-xl-3 col-sm-6 hidden-input d-none">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Shifra</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <p id="code-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-solid"
+                                                                id="code" name="" value=""
+                                                                placeholder="Shëno shifrën" />
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div
+                                                        class="col-md-3 col-lg-4 col-xl-3 col-sm-6 hidden-input d-none">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Grupi</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <p id="group-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+                                                            <!--begin::Input-->
+                                                            <select name="Grupi" aria-label="Grupi"
+                                                                data-control="select2" data-placeholder="Grupi"
+                                                                id="group" class="form-select mb-2">
+                                                                <option></option>
+                                                                <% for(let i=0;i<group.length;i++){%>
+                                                                    <option value="<%=group[i]._id  %>">
+                                                                        <%=group[i].name %>
+                                                                    </option>
+                                                                    <% } %>
+                                                            </select>
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div
+                                                        class="col-md-3 col-lg-4 col-xl-3 col-sm-6 hidden-input d-none">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Nëngrupi</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <p id="subgroup-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+
+                                                            <!--begin::Input-->
+                                                            <select name="Nëngrupi" aria-label="Nëngrupi" id="subgroup"
+                                                                data-control="select2" data-placeholder="Nëngrupi"
+                                                                class="form-select mb-2">
+                                                                <option></option>
+                                                                <% for(let i=0;i<subgroup.length;i++){%>
+                                                                    <option value="<%=subgroup[i]._id  %>">
+                                                                        <%=subgroup[i].name %>
+                                                                    </option>
+                                                                    <% } %>
+                                                            </select>
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Col-->
+                                                    <div
+                                                        class="col-md-3 col-lg-4 col-xl-3 col-sm-6 hidden-input d-none">
+                                                        <!--begin::Input group-->
+                                                        <div class="d-flex flex-column mb-2 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span>Zonat</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <p id="zone-article-error"
+                                                                class="text-danger show-errors-article mb-0"></p>
+
+                                                            <!--begin::Input-->
+                                                            <select name="Zonat" aria-label="Zonat" id="zone"
+                                                                data-control="select2" data-placeholder="Zonat"
+                                                                class="form-select mb-2 ">
+                                                                <option></option>
+                                                                <% for(let i=0;i<zone.length;i++){%>
+                                                                    <option value="<%=zone[i]._id  %>">
+                                                                        <%=zone[i].name %>
+                                                                    </option>
+                                                                    <% } %>
+                                                            </select>
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                    <!--begin::Action buttons-->
+                                                    <div
+                                                        class="d-flex justify-content-center align-items-center w-100 mt-3">
+                                                        <button id="add_articles_formbn" type="button" 
+                                                            class="btn btn-primary">
+                                                            <span class="indicator-label">Regjistro</span>
+                                                        </button>
+                                                        <!--end::Button-->
+                                                    </div>
+                                                    <!--end::Action buttons-->
+                                                </div>
+                                                <!--end::Row-->
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                    <!--end::Form-->
+                                    <!--begin::Products-->
+                                    <div class="card card-flush mt-5">
+                                        <!--begin::Card header-->
+                                        <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                            <!--begin::Card title-->
+                                            <div class="card-title">
+                                                <!--begin::Search-->
+                                                <div class="d-flex align-items-center position-relative my-1">
+                                                    <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </i>
+                                                    <input type="text" id="article-table-search"
+                                                        class="form-control form-control-solid w-250px ps-12"
+                                                        placeholder="Kërko..." />
+                                                </div>
+                                                <!--end::Search-->
+                                            </div>
+                                            <!--end::Card title-->
+                                            <!--begin::Card toolbar-->
+                                            <div class="d-flex align-items-center ms-auto gap-2">
+                                                <div id="print">
+                                                </div>
+                                                <div>
+                                                    <a data-bs-toggle="modal" data-bs-target="#excel-download" id=""
+                                                        class="btn btn-primary">
+                                                        <span class="indicator-label">Importo Excel</span>
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    <a data-bs-toggle="modal" data-bs-target="#barcode-modal" id=""
+                                                        class="btn btn-primary">
+                                                        <span class="indicator-label">Printo barkodin</span>
+                                                    </a>
+                                                </div>
+                                                <div id="print"></div>
+                                            </div>
+                                            <!--end::Card toolbar-->
+                                        </div>
+                                        <!--end::Card header-->
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <!--begin::Table-->
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                    id="article_table">
+                                                    <thead>
+                                                        <tr
+                                                            class="text-start text-gray-800 fw-bold fs-6 text-uppercase gs-0">
+                                                            <th class="w-10px">Nr </th>
+                                                            <th class="w-150px">Barkodi</th>
+                                                            <th class="w-150px">Emërtimi</th>
+                                                            <th class="w-150px">Norma TVSH</th>
+                                                            <th class="w-150px">Parametri shitës</th>
+                                                            <th class="w-150px">Sasia minimale</th>
+                                                            <th class="w-150px">Barkod paketë</th>
+                                                            <th class="w-150px">Shifra</th>
+                                                            <th class="text-end w-100px">Opsionet</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="fw-semibold text-gray-700">
+                                                    </tbody>
+                                                </table>
+                                                <!--end::Table-->
+                                            </div>
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Products-->
+                                </div>
+                                <!--end::Container-->
+                            </div>
+                            <!--end::Post-->
+                        </div>
+                        <!--end::Content-->
+
+                        <%- include('./includes/footer.ejs') %>
+                </div>
+                <!--end::Wrapper-->
+        </div>
+        <!--end::Page-->
+    </div>
+    <!--end::App-->
+    <!--begin::Modal - Grupet-->
+    <div class="modal fade" id="Grupet" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <!--begin::Modal content-->
+            <div class="modal-content modal-rounded">
+                <!--begin::Modal header-->
+
+                <div class="modal-header p-1 d-flex justify-content-between">
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <!--begin::Content container-->
+                    <!--begin::Container-->
+                    <div id="kt_content_container" class="container-fluid">
+                        <!--begin::Card body-->
+                        <form id="form-add-grup">
+                            <!--begin::Tab Content-->
+                            <div class="tab-content">
+                                <!--begin::Tab panel-->
+                                <div class=" p-0 tab-pane fade show active">
+                                    <!--begin::Content wrapper-->
+                                    <div class="d-flex flex-column flex-column-fluid card">
+                                        <!--begin::Card body-->
+                                        <div class="card-body border-top pt-5">
+                                            <!--begin::Input group-->
+                                            <!--begin::Row-->
+                                            <div class="row ">
+                                                <!--begin::Col-->
+                                                <div class="col-md-10" style="margin-top: 2px;">
+                                                    <!--begin::Input group-->
+                                                    <div class="d-flex flex-column mb-2 fv-row">
+                                                        <!--begin::Label-->
+                                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                                            <span>Grupi</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+
+                                                        <input type="text" class="form-control form-control-solid"
+                                                            id="group_name" name="" value=""
+                                                            placeholder="Shëno grupin" />
+                                                        <p id="name-group-error"
+                                                            class="text-danger show-errors-group mb-0"></p>
+
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+                                                <!--end::Col-->
+                                                <div class="col-md-2 mt-md-12 mt-3">
+                                                    <button type="submit" id="" class="btn btn-primary">
+                                                        <span class="indicator-label">Ruaj</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <!--end::Row-->
+                                        </div>
+                                    </div>
+                                    <!--end::Toolbar container-->
+                                </div>
+                                <!--end::Toolbar-->
+                            </div>
+                            <!--end::Content wrapper-->
+                        </form>
+                        <!--end::Tab panel-->
+
+                        <!--begin::Products-->
+                        <div class="card card-flush mt-3">
+                            <!--begin::Card header-->
+                            <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <!--begin::Search-->
+                                    <div class="d-flex align-items-center position-relative my-1">
+                                        <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                        <input type="text" id="group-table-search"
+                                            class="form-control form-control-solid w-250px ps-12"
+                                            placeholder="Kërko..." />
+                                    </div>
+                                    <!--end::Search-->
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <div class="table-responsive">
+                                    <!--begin::Table-->
+                                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="group_table">
+                                        <thead>
+                                            <tr class="text-start text-gray-800 fw-bold fs-6 text-uppercase gs-0">
+                                                <th class="w-10px">Nr </th>
+                                                <th class="w-150px">Grupi</th>
+                                                <th class="w-10px">Opsionet</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="fw-semibold text-gray-700">
+                                        </tbody>
+                                    </table>
+                                    <!--end::Table-->
+                                </div>
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Products-->
+                    </div>
+                    <!--end::Container-->
+                </div>
+                <!--begin::Modal body-->
+            </div>
+        </div>
+    </div>
+    <!--end::Modal - Grupet-->
+    <!--begin::Modal - Nëngrupet-->
+    <div class="modal fade" id="Nëngrupet" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <!--begin::Modal content-->
+            <div class="modal-content modal-rounded">
+                <!--begin::Modal header-->
+
+                <div class="modal-header p-1 d-flex justify-content-between">
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <!--begin::Content container-->
+                    <!--begin::Container-->
+                    <div id="kt_content_container" class="container-fluid">
+                        <!--begin::Card body-->
+                        <form id="form-add-subgrup">
+                            <!--begin::Tab Content-->
+                            <div class="tab-content">
+                                <!--begin::Tab panel-->
+                                <div class=" p-0 tab-pane fade show active">
+                                    <!--begin::Content wrapper-->
+                                    <div class="d-flex flex-column flex-column-fluid card">
+                                        <!--begin::Card body-->
+                                        <div class="card-body border-top pt-5">
+                                            <!--begin::Input group-->
+                                            <!--begin::Row-->
+                                            <div class="row ">
+                                                <!--begin::Col-->
+                                                <div class="col-md-12">
+                                                    <!--begin::Input group-->
+                                                    <div class="d-flex flex-column mb-3 fv-row">
+                                                        <!--begin::Label-->
+                                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                                            <span>Grupi</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <p id="group-subgroup-error"
+                                                            class="text-danger show-errors-subgroup mb-0"></p>
+                                                        <select class="form-select form-select-solid"
+                                                            id="subgroup-grname" data-control="select2"
+                                                            data-placeholder="Zgjedh grupin">
+                                                            <option></option>
+                                                            <% for(let i=0;i<group.length;i++){%>
+                                                                <option value="<%=group[i]._id  %>">
+                                                                    <%=group[i].name %>
+                                                                </option>
+                                                                <% } %>
+                                                        </select>
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+                                                <!--end::Col-->
+                                                <!--begin::Col-->
+                                                <div class="col-md-10" style="margin-top: 2px;">
+                                                    <!--begin::Input group-->
+                                                    <div class="d-flex flex-column mb-2 fv-row">
+                                                        <!--begin::Label-->
+                                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                                            <span>Nëngrupi</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <p id="subgroup-subgroup-error"
+                                                            class="text-danger show-errors-subgroup mb-0"></p>
+                                                        <input type="text" class="form-control form-control-solid"
+                                                            id="subgroup-name" name="" value=""
+                                                            placeholder="Shëno nëngrupin" />
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+                                                <!--end::Col-->
+                                                <div class="col-md-2 mt-md-12 mt-3">
+                                                    <button type="submit" id="" class="btn btn-primary">
+                                                        <span class="indicator-label">Ruaj</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <!--end::Row-->
+                                        </div>
+                                    </div>
+                                    <!--end::Toolbar container-->
+                                </div>
+                                <!--end::Toolbar-->
+                            </div>
+                            <!--end::Content wrapper-->
+                        </form>
+                        <!--end::Tab panel-->
+
+                        <!--begin::Products-->
+                        <div class="card card-flush mt-3">
+                            <!--begin::Card header-->
+                            <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <!--begin::Search-->
+                                    <div class="d-flex align-items-center position-relative my-1">
+                                        <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                        <input type="text" id="subgroup-table-search"
+                                            class="form-control form-control-solid w-250px ps-12"
+                                            placeholder="Kërko..." />
+                                    </div>
+                                    <!--end::Search-->
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <div class="table-responsive">
+                                    <!--begin::Table-->
+                                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="subgroup_table">
+                                        <thead>
+                                            <tr class="text-start text-gray-800 fw-bold fs-6 text-uppercase gs-0">
+                                                <th class="w-10px">Nr </th>
+                                                <th class="w-150px">Grupi</th>
+                                                <th class="w-150px">Nëngrupi</th>
+                                                <th class="w-10px">Opsionet</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="fw-semibold text-gray-700">
+                                        </tbody>
+                                    </table>
+                                    <!--end::Table-->
+                                </div>
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Products-->
+                    </div>
+                    <!--end::Container-->
+                </div>
+                <!--begin::Modal body-->
+            </div>
+        </div>
+    </div>
+    <!--end::Modal - Nëngrupet-->
+    <!--begin::Modal - Zonat-->
+    <div class="modal fade" id="Zonat" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <!--begin::Modal content-->
+            <div class="modal-content modal-rounded">
+                <!--begin::Modal header-->
+
+                <div class="modal-header p-1 d-flex justify-content-between">
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <!--begin::Content container-->
+                    <!--begin::Container-->
+                    <div id="kt_content_container" class="container-fluid">
+                        <!--begin::Card body-->
+                        <form id="form-add-zone">
+                            <!--begin::Tab Content-->
+                            <div class="tab-content">
+                                <!--begin::Tab panel-->
+                                <div class=" p-0 tab-pane fade show active">
+                                    <!--begin::Content wrapper-->
+                                    <div class="d-flex flex-column flex-column-fluid card">
+                                        <!--begin::Card body-->
+                                        <div class="card-body border-top pt-5">
+                                            <!--begin::Input group-->
+                                            <!--begin::Row-->
+                                            <div class="row ">
+                                                <!--begin::Col-->
+                                                <div class="col-md-10" style="margin-top: 2px;">
+                                                    <!--begin::Input group-->
+                                                    <div class="d-flex flex-column mb-2 fv-row">
+                                                        <!--begin::Label-->
+                                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                                            <span>Zonat</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <p id="name-zone-error"
+                                                            class="text-danger show-errors-group mb-0"></p>
+                                                        <input type="text" class="form-control form-control-solid"
+                                                            name="" value="" placeholder="Shëno zonën" id="zone-name" />
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+                                                <!--end::Col-->
+                                                <div class="col-md-2 mt-md-12 mt-3">
+                                                    <button type="submit" id="" class="btn btn-primary">
+                                                        <span class="indicator-label">Ruaj</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <!--end::Row-->
+                                        </div>
+                                    </div>
+                                    <!--end::Toolbar container-->
+                                </div>
+                                <!--end::Toolbar-->
+                            </div>
+                            <!--end::Content wrapper-->
+                        </form>
+                        <!--end::Tab panel-->
+
+                        <!--begin::Products-->
+                        <div class="card card-flush mt-3">
+                            <!--begin::Card header-->
+                            <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <!--begin::Search-->
+                                    <div class="d-flex align-items-center position-relative my-1">
+                                        <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                        <input type="text" id="zone-table-search"
+                                            class="form-control form-control-solid w-250px ps-12"
+                                            placeholder="Kërko..." />
+                                    </div>
+                                    <!--end::Search-->
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <div class="table-responsive">
+                                    <!--begin::Table-->
+                                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="zone_table">
+                                        <thead>
+                                            <tr class="text-start text-gray-800 fw-bold fs-6 text-uppercase gs-0">
+                                                <th class="w-10px">Nr </th>
+                                                <th class="w-150px">Zonat</th>
+                                                <th class="w-10px">Opsionet</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="fw-semibold text-gray-700">
+                                        </tbody>
+                                    </table>
+                                    <!--end::Table-->
+                                </div>
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Products-->
+                    </div>
+                    <!--end::Container-->
+                </div>
+                <!--begin::Modal body-->
+            </div>
+        </div>
+    </div>
+    <!--end::Modal - Zonat-->
+    <!--begin::Modal - Prodhuesit-->
+    <div class="modal fade" id="Prodhuesit" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <!--begin::Modal content-->
+            <div class="modal-content modal-rounded">
+                <!--begin::Modal header-->
+
+                <div class="modal-header p-1 d-flex justify-content-between">
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <!--begin::Content container-->
+                    <!--begin::Container-->
+                    <div id="kt_content_container" class="container-fluid">
+                        <!--begin::Card body-->
+                        <form id="form-add-manufacturer">
+                            <!--begin::Tab Content-->
+                            <div class="tab-content">
+                                <!--begin::Tab panel-->
+                                <div class=" p-0 tab-pane fade show active">
+                                    <!--begin::Content wrapper-->
+                                    <div class="d-flex flex-column flex-column-fluid card">
+                                        <!--begin::Card body-->
+                                        <div class="card-body border-top pt-5">
+                                            <!--begin::Input group-->
+                                            <!--begin::Row-->
+                                            <div class="row ">
+                                                <!--begin::Col-->
+                                                <div class="col-md-10" style="margin-top: 2px;">
+                                                    <!--begin::Input group-->
+                                                    <div class="d-flex flex-column mb-2 fv-row">
+                                                        <!--begin::Label-->
+                                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                                            <span>Prodhuesit</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-solid"
+                                                            name="" value="" placeholder="Shëno prodhuesin"
+                                                            id="manufacturer-name" />
+                                                        <p id="name-manufacturer-error"
+                                                            class="text-danger show-errors-manufacturer mb-0"></p>
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+                                                <!--end::Col-->
+                                                <div class="col-md-2 mt-md-12 mt-3">
+                                                    <button type="submit" id="" class="btn btn-primary">
+                                                        <span class="indicator-label">Ruaj</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <!--end::Row-->
+                                        </div>
+                                    </div>
+                                    <!--end::Toolbar container-->
+                                </div>
+                                <!--end::Toolbar-->
+                            </div>
+                            <!--end::Content wrapper-->
+                        </form>
+                        <!--end::Tab panel-->
+
+                        <!--begin::Products-->
+                        <div class="card card-flush mt-3">
+                            <!--begin::Card header-->
+                            <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <!--begin::Search-->
+                                    <div class="d-flex align-items-center position-relative my-1">
+                                        <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                        <input type="text" id="manufacturer-table-search"
+                                            class="form-control form-control-solid w-250px ps-12"
+                                            placeholder="Kërko..." />
+                                    </div>
+                                    <!--end::Search-->
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <div class="table-responsive">
+                                    <!--begin::Table-->
+                                    <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                        id="manufacturer_table">
+                                        <thead>
+                                            <tr class="text-start text-gray-800 fw-bold fs-6 text-uppercase gs-0">
+                                                <th class="w-10px">Nr </th>
+                                                <th class="w-150px">Prodhuesi</th>
+                                                <th class="w-10px">Opsionet</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="fw-semibold text-gray-700">
+                                        </tbody>
+                                    </table>
+                                    <!--end::Table-->
+                                </div>
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Products-->
+                    </div>
+                    <!--end::Container-->
+                </div>
+                <!--begin::Modal body-->
+            </div>
+        </div>
+    </div>
+    <!--end::Modal - Prodhuesit-->
+    <!--begin::Modal - barcode-modal-->
+    <div class="modal fade" id="barcode-modal" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <!--begin::Modal content-->
+            <div class="modal-content modal-rounded">
+                <!--begin::Modal header-->
+
+                <div class="modal-header p-1 d-flex justify-content-between">
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <!--begin::Content container-->
+                    <!--begin::Container-->
+                    <div id="kt_content_container" class="container-fluid">
+                        <!--begin::Card body-->
+
+                        <!--begin::Tab Content-->
+                        <div class="tab-content">
+                            <!--begin::Tab panel-->
+                            <div class=" p-0 tab-pane fade show active">
+                                <!--begin::Content wrapper-->
+                                <div class="d-flex flex-column flex-column-fluid card">
+                                    <!--begin::Card body-->
+                                    <div class="card-body border-top pt-5">
+                                        <!--begin::Input group-->
+                                        <!--begin::Row-->
+                                        <div class="row ">
+                                            <!--begin::Col-->
+                                            <div class="col-md-9" style="margin-top: 2px;">
+                                                <!--begin::Input group-->
+                                                <div class="d-flex flex-column mb-2 fv-row">
+                                                    <!--begin::Label-->
+                                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                                        <span>Barkodi i produktit</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" id="barcode-value"
+                                                        class="form-control form-control-solid w-250px ps-12"
+                                                        placeholder="Shëno barcode..." />
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+                                            <!--end::Col-->
+                                            <div class="col-md-3 mt-md-12 mt-3">
+                                                <button type="click" id="print-barcode" class="btn btn-primary">
+                                                    <span class="indicator-label">Printo</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                </div>
+                                <!--end::Toolbar container-->
+                            </div>
+                            <!--end::Toolbar-->
+                        </div>
+                        <!--end::Content wrapper-->
+
+                        <!--end::Tab panel-->
+
+                        <!--begin::Products-->
+                        <div class="card card-flush mt-3">
+                            <!--begin::Card header-->
+                            <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <svg id="showBarcode"></svg>
+
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Products-->
+                    </div>
+                    <!--end::Container-->
+                </div>
+                <!--begin::Modal body-->
+            </div>
+        </div>
+    </div>
+    <!--end::Modal - barcode-modal-->
+    <!--begin::Modal - excel-download-->
+    <div class="modal fade" id="excel-download" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <!--begin::Modal content-->
+            <div class="modal-content modal-rounded">
+                <!--begin::Modal header-->
+
+                <div class="modal-header p-1 d-flex justify-content-between">
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <!--begin::Content container-->
+                    <!--begin::Container-->
+                    <div id="kt_content_container" class="container-fluid">
+                        <!--begin::Card body-->
+
+                        <!--begin::Tab Content-->
+                        <div class="tab-content">
+                            <!--begin::Tab panel-->
+                            <div class=" p-0 tab-pane fade show active">
+                                <!--begin::Content wrapper-->
+                                <div class="d-flex flex-column flex-column-fluid card">
+                                    <!--begin::Card body-->
+                                    <div class="card-body border-top pt-5">
+                                        <!--begin::Input group-->
+                                        <div class="d-flex align-items-center">
+                                            <h5>Shkarko formatin e Excel <a href="/assets/Import-artikujt.xlsx"
+                                                    download>Kliko këtu</a></h5>
+                                        </div>
+                                        <!--begin::Row-->
+                                        <div class="row ">
+                                            <!--begin::Col-->
+                                            <div class="col-md-12" style="margin-top: 2px;">
+                                                <!--begin::Input group-->
+                                                <div class="d-flex flex-column mb-2 fv-row">
+                                                    <!--begin::Label-->
+                                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                                        <span>Importo prej Excel</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="file" id="excel_import" name="" accept=".xlsx, .xls"
+                                                        class="form-control form-control-solid ps-12"
+                                                        placeholder="Importo exel..." />
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+                                            <!--end::Col-->
+                                            <div class="d-flex justify-content-center">
+                                                <div class="col-md-3 mt-md-12 mt-3">
+                                                    <button type="click" id="" class="btn btn-primary"
+                                                        data-bs-dismiss="modal" aria-label="Close">
+                                                        <span class="indicator-label">Mbylle</span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-3 mt-md-12 mt-3">
+                                                    <button type="click" id="import-btn" class="btn btn-primary">
+                                                        <span class="indicator-label">Importo</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                </div>
+                                <!--end::Toolbar container-->
+                            </div>
+                            <!--end::Toolbar-->
+                        </div>
+                        <!--end::Content wrapper-->
+                        <!--end::Tab panel-->
+                    </div>
+                    <!--end::Container-->
+                </div>
+                <!--begin::Modal body-->
+            </div>
+        </div>
+    </div>
+    <!--end::Modal - excel-download-->
+    <!--begin::Javascript-->
+    <%- include('./includes/script.ejs') %>
+        <script>
+            const toggleInput = document.getElementById('toggleInput');
+            const discountInput = document.getElementsByClassName('hidden-input');
+
+            toggleInput.addEventListener('change', () => {
+                for (let i = 0; i < discountInput.length; i++) {
+                    if (toggleInput.checked) {
+                        discountInput[i].classList.remove('d-none');
+                    } else {
+                        discountInput[i].classList.add('d-none');
+                    }
+                }
+            });
+        </script>
+        <!--end::Javascript-->
+        <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+        <!--begin::Custom Javascript(used for this page only)-->
+        <script src="/assets/js/utils.js"></script>
+        <script src="/assets/js/article/group/table_group.js"></script>
+        <script src="/assets/js/article/subgroup/table_subgroup.js"></script>
+        <script src="/assets/js/article/zonat/table_zone.js"></script>
+        <script src="/assets/js/article/manufacturer/manufacturer_table.js"></script>
+        <script src="/assets/js/article/article_table.js"></script>
+        <script src="/assets/js/barcode.js"></script>
+        <script src="/assets/js/article/printBarcode.js"></script>
+        <script src="/assets/js/article/addArticleExel.js"></script>
+
+
+
+
+        <!--end::Javascript-->
+</body>
+<!--end::Body-->
+
+</html>

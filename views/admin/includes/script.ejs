@@ -1,0 +1,60 @@
+<!--end::Scrolltop-->
+<script src="/assets/js/jquery.calculator.min.js"></script>
+<script>
+	$('#cccc').calculator({
+		layout: ['_%+-CABS', '_7_8_9_/', '_4_5_6_*', '_1_2_3_-', '_0_._=_+'],
+		showFormula: true,
+		// Add a keydown event listener to the calculator input
+		onkeydown: function (event, options, currentValue) {
+			// Check if the pressed key is Enter (key code 13)
+			if (event.keyCode === 13) {
+				// Simulate a click on the "=" button
+				$('[data-keystroke="_="]')[0].click();
+			}
+		}
+	});
+	$('.calc').click(function (e) {
+		e.stopPropagation();
+	});
+</script>
+<script>
+	function startClock() {
+		updateClock();
+		setInterval(updateClock, 1000);
+	}
+
+	function updateClock() {
+		const today = new Date();
+
+		let day = today.getDate();
+		let month = today.getMonth() + 1;
+		let year = today.getFullYear();
+
+		day = checkTime(day);
+		month = checkTime(month);
+
+		let h = today.getHours();
+		let m = today.getMinutes();
+		let s = today.getSeconds();
+		m = checkTime(m);
+		s = checkTime(s);
+
+		document.getElementById('real_time').innerHTML = day + "/" + month + "/" + year + " " + h + ":" + m + ":" + s;
+	}
+
+	function checkTime(i) {
+		if (i < 10) { i = "0" + i };
+		return i;
+	}
+</script>
+<!--begin::Javascript-->
+<script>var hostUrl = "/assets/";</script>
+<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+<script src="/assets/plugins/global/plugins.bundle.js"></script>
+<script src="/assets/js/scripts.bundle.js"></script>
+<script src="/assets/js/widgets.bundle.js"></script>
+<script src="/assets/js/custom/widgets.js"></script>
+<script>
+	$("#kt_datepicker_1").flatpickr();
+</script>
+<!--end::Global Javascript Bundle-->

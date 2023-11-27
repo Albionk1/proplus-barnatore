@@ -1,0 +1,325 @@
+<nav class="navbar navbar-expand-md nav-pos-main">
+	<div class="container-fluid">
+		<div class="flex-responsive-nav">
+			<button class="navbar-toggler me-auto" type="button" data-bs-toggle="offcanvas"
+				data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand fs-4 fw-bold text-white ps-1 ms-auto" href="/pos/index"><img
+					src="/assets/media/logos/final-logo.png" alt="Logo" title="Logo"></a>
+		</div>
+		<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+			aria-labelledby="offcanvasDarkNavbarLabel">
+			<div class="offcanvas-header">
+
+				<h3 class="offcanvas-title text-white" id="offcanvasDarkNavbarLabel">ProPlus24</h3>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+					aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+					<!--begin::Time-->
+					<div class="app-navbar-item mx-1 d-flex align-items-center fs-3 me-5">
+						<div id="real_time"></div>
+					</div>
+					<!--end::Time-->
+					<!--begin::Home-->
+					<%if(user.role==='superadmin'||user.role==='managment'){%>
+						<div class="app-navbar-item mx-1">
+							<!--begin::Menu- wrapper-->
+							<a href="/admin/index"
+								class="btn btn-icon btn-custom btn-icon-muted w-50px h-50px position-relative d-flex flex-column bg-pos-blue"
+								data-bs-toggle="tooltip" aria-label="Paneli" data-bs-original-title="Paneli">
+								<i class="bi bi-house-fill fs-3 text-white"></i>
+								<span class="mt-2 fs-5">F1</span>
+							</a>
+
+							<!--end::Menu wrapper-->
+						</div>
+						<!--end::Home-->
+						<% } %>
+							<!--begin::POS-->
+							<div class="app-navbar-item mx-1">
+								<!--begin::Menu- wrapper-->
+								<a href="/pos/index"
+									class="btn btn-custom btn-icon-muted h-50px btn-header-icon m-0 border-1 bg-pos-blue"
+									data-bs-toggle="tooltip" aria-label="POS" data-bs-original-title="POS">
+									<div class="d-flex align-items-center justify-content-center pb-1">
+										<i class="ki-duotone ki-handcart fs-3 text-white">
+										</i>
+										<span class="px-1">POS</span>
+									</div>
+									<span class="mt-2 fs-5">F2</span>
+
+								</a>
+								<!--end::Menu wrapper-->
+							</div>
+							<!--end::POS-->
+
+							<!--begin::Gift-->
+							<div class="app-navbar-item mx-1">
+								<!--begin::Menu- wrapper-->
+								<a data-bs-toggle="modal" data-bs-target="#gift_card"
+									class="btn btn-icon btn-custom btn-icon-muted w-50px h-50px position-relative bg-pos-blue d-flex flex-column mt-md-0 mt-3">
+									<i class="bi bi-gift-fill fs-3 text-white"></i>
+									<span class="mt-2 fs-5">F3</span>
+
+								</a>
+								<!--end::Menu wrapper-->
+							</div>
+							<!--end::Gift-->
+							<!--begin::Shpenzimet-->
+							<div class="app-navbar-item mx-1">
+								<!--begin::Menu- wrapper-->
+								<a data-bs-toggle="modal" data-bs-target="#expenses"
+									class="btn btn-icon btn-custom btn-icon-muted w-50px h-50px position-relative bg-pos-blue d-flex flex-column"
+									data-bs-toggle="tooltip" aria-label="Shpenzimet"
+									data-bs-original-title="Shpenzimet">
+									<i class="bi bi-currency-euro text-white fs-3"></i>
+									<span class="mt-2 fs-5">F4</span>
+								</a>
+								<!--end::Menu wrapper-->
+							</div>
+							<!--end::Shpenzimet-->
+							<!--begin::Partneri-->
+							<div class="app-navbar-item mx-1">
+								<!--begin::Menu- wrapper-->
+								<a href="/pos/partner"
+									class="btn btn-icon btn-custom btn-icon-muted w-50px h-50px position-relative bg-pos-blue d-flex flex-column"
+									data-bs-toggle="tooltip" aria-label="Partneri" data-bs-original-title="Partneri">
+									<i class="bi bi-person-fill text-white fs-3"></i>
+									<span class="mt-2 fs-5">F5</span>
+								</a>
+								<!--end::Menu wrapper-->
+							</div>
+							<!--end::Partneri-->
+							<!--begin::Calculator-->
+							<div class="app-navbar-item mx-1">
+								<!--begin::Menu- wrapper-->
+								<div class="btn btn-icon btn-custom btn-icon-muted w-50px h-50px position-relative bg-pos-blue d-flex flex-column"
+									data-kt-menu-trigger="{default: 'click'}" data-kt-menu-attach="parent"
+									data-kt-menu-placement="bottom-end" data-bs-toggle="tooltip"
+									aria-label="Kalkulatori" data-bs-original-title="Kalkulatori">
+									<i class="bi bi-calculator-fill fs-3 text-white"></i>
+									<span class="mt-2 fs-5">F6</span>
+								</div>
+								<!--begin::Menu-->
+								<div class="menu menu-sub menu-sub-dropdown menu-column w-300px" data-kt-menu="true">
+									<li>
+										<a class="btn tip" title="" data-placement="bottom" href="#"
+											data-toggle="dropdown" data-original-title="Calculator">
+										</a>
+										<ul class="pull-right calc" style="display: block;">
+											<li class="dropdown-content">
+												<span id="cccc"></span>
+											</li>
+										</ul>
+									</li>
+								</div>
+								<!--end::Menu-->
+								<!--end::Menu wrapper-->
+							</div>
+							<!--end::Calculator-->
+							<!--begin::Search-->
+							<div class="app-navbar-item mx-1">
+								<!--begin::Menu- wrapper-->
+								<a href="/pos/search-product"
+									class="btn btn-icon btn-custom btn-icon-muted w-50px h-50px position-relative bg-pos-blue d-flex flex-column"
+									data-bs-toggle="tooltip" aria-label="Kërko produkte"
+									data-bs-original-title="Kërko produkte">
+									<i class="bi bi-search text-white fs-3"></i>
+									<span class="mt-2 fs-5">F7</span>
+								</a>
+								<!--end::Menu wrapper-->
+							</div>
+							<!--end::Search-->
+							<%if(user.role==='superadmin'||user.role==='managment'||user.access.includes('arc')){%>
+								<!--begin::Bag-->
+								<div class="app-navbar-item mx-1">
+									<!--begin::Menu- wrapper-->
+									<a href="/pos/arc"
+										class="btn btn-icon btn-custom btn-icon-muted w-50px h-50px position-relative bg-pos-blue d-flex flex-column"
+										data-bs-toggle="tooltip" aria-label="Shitjet / Arka"
+										data-bs-original-title="Shitjet / Arka">
+										<i class="bi bi-bag-fill fs-3 text-white"></i>
+										<span class="mt-2 fs-5">F8</span>
+									</a>
+									<!--end::Menu wrapper-->
+								</div>
+								<!--end::Bag-->
+								<% } %>
+									<!--begin::People-->
+									<div class="app-navbar-item mx-1 d-none">
+										<!--begin::Menu- wrapper-->
+										<a href="/pos/index"
+											class="btn btn-icon btn-custom btn-icon-muted w-50px h-50px position-relative bg-pos-blue d-flex flex-column"
+											data-bs-toggle="tooltip" aria-label="Klientat"
+											data-bs-original-title="Klientat">
+											<i class="bi bi-people-fill fs-3 text-white"></i>
+											<span class="mt-2 fs-5">F9</span>
+										</a>
+										<!--end::Menu wrapper-->
+									</div>
+									<!--end::People-->
+									<!--begin::Notifications-->
+									<div class="app-navbar-item mx-1 d-none">
+										<!--begin::Menu- wrapper-->
+										<div class="btn btn-icon btn-custom btn-icon-muted w-50px h-50px position-relative bg-pos-blue d-flex flex-column"
+											data-bs-toggle="tooltip" aria-label="Njoftimet"
+											data-bs-original-title="Njoftimet" data-kt-menu-trigger="{default: 'click'}"
+											data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+											<i class="bi bi-bell-fill text-white fs-2"></i>
+											<span style="position: absolute;
+			font-size: 8px;
+			line-height: 10px;
+			top: 0;
+			right: 0;
+			height: 10px;
+			width: 10px;
+			background: #fabb3d !important;
+			color: black;" id="message-count">22</span>
+										</div>
+										<!--begin::Menu-->
+										<div class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px"
+											data-kt-menu="true" id="kt_menu_notifications">
+											<!--begin::Heading-->
+											<div class="d-flex flex-column bgi-no-repeat rounded-top bg-primary">
+												<!--begin::Title-->
+												<h3 class="text-white fw-semibold px-3 mt-10 mb-6">Njoftimet <span
+														class=" opacity-75 ps-2">24
+														njoftime</span>
+												</h3>
+												<!--end::Title-->
+											</div>
+											<!--end::Heading-->
+											<!--begin::Tab content-->
+											<div class="tab-content">
+												<!--begin::Tab panel-->
+												<div class="tab-pane fade show active" id="notifications"
+													role="tabpanel">
+													<!--begin::Items-->
+													<div class="scroll-y mh-325px my-5 px-8">
+														<!--begin::Item-->
+														<div class="d-flex flex-stack py-4">
+															<!--begin::Section-->
+															<div class="d-flex align-items-center">
+																<!--begin::Title-->
+																<div class="mb-0 me-2">
+																	<a href="#"
+																		class="fs-6 text-gray-800 text-hover-primary fw-bold">
+																		<%=user.full_name %>
+																	</a>
+																</div>
+																<!--end::Title-->
+															</div>
+															<!--end::Section-->
+															<!--begin::Label-->
+															<span class="badge badge-light fs-8">2min</span>
+															<!--end::Label-->
+														</div>
+														<!--end::Item-->
+														<!--begin::Item-->
+														<div class="d-flex flex-stack py-4">
+															<!--begin::Section-->
+															<div class="d-flex align-items-center">
+																<!--begin::Title-->
+																<div class="mb-0 me-2">
+																	<a href="#"
+																		class="fs-6 text-gray-800 text-hover-primary fw-bold">
+																		<%=user.full_name %>
+																	</a>
+																</div>
+																<!--end::Title-->
+															</div>
+															<!--end::Section-->
+															<!--begin::Label-->
+															<span class="badge badge-light fs-8">5min</span>
+															<!--end::Label-->
+														</div>
+														<!--end::Item-->
+													</div>
+													<!--end::Items-->
+													<!--begin::View more-->
+													<div class="py-3 text-center border-top">
+														<a href=""
+															class="btn btn-color-gray-600 btn-active-color-primary">Shiko
+															të
+															gjitha
+															<i class="ki-outline ki-arrow-right fs-5"></i>
+														</a>
+													</div>
+													<!--end::View more-->
+												</div>
+												<!--end::Tab panel-->
+											</div>
+											<!--end::Tab content-->
+										</div>
+										<!--end::Menu-->
+										<!--end::Menu wrapper-->
+									</div>
+									<!--end::Notifications-->
+									<!--begin::User menu-->
+									<div class="app-navbar-item ms-1 ms-md-4 d-flex flex-column justify-content-center align-items-center mb-md-0 mb-5"
+										id="kt_header_user_menu_toggle">
+										<!--begin::Menu wrapper-->
+										<div class="cursor-pointer symbol symbol-30px"
+											data-kt-menu-trigger="{default: 'click'}" data-kt-menu-attach="parent"
+											data-kt-menu-placement="bottom-end">
+											<!-- <img src="/assets/media/avatars/300-25.jpg" alt="user" style="border-radius: 0 !important;" /> -->
+											<span class="text-white fs-5">
+												<%=user.full_name %> <i class="ki-duotone ki-arrow-down text-white">
+														<i class="path1"></i>
+														<i class="path2"></i>
+													</i>
+											</span>
+										</div>
+										<!--begin::User account menu-->
+										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
+											data-kt-menu="true">
+											<!--begin::Menu item-->
+											<div class="menu-item px-3">
+												<div class="menu-content d-flex align-items-center px-3">
+													<!--begin::Avatar-->
+													<div class="symbol symbol-50px me-5">
+														<img alt="Logo" src="/assets/media/avatars/blank.png" />
+													</div>
+													<!--end::Avatar-->
+													<!--begin::Username-->
+													<div class="d-flex flex-column">
+														<div class="fw-bold d-flex align-items-center fs-5 text-dark">
+															<%=user.full_name %>
+														</div>
+													</div>
+													<!--end::Username-->
+												</div>
+											</div>
+											<!--end::Menu item-->
+											<!--begin::Menu item-->
+											<div class="menu-item px-5 d-none">
+												<a href="/pos/profile" class="menu-link bg-white px-5"><i
+														class="ki-duotone ki-user text-dark me-3">
+														<i class="path1"></i>
+														<i class="path2"></i>
+													</i> Profili</a>
+											</div>
+											<!--end::Menu item-->
+											<!--begin::Menu item-->
+											<div class="menu-item px-5">
+												<a href="/api/v1/auth/logout" class="menu-link bg-white px-5"><i
+														class="ki-duotone ki-exit-right fs-3 text-dark me-2">
+														<i class="path1"></i>
+														<i class="path2"></i>
+													</i> Ç'kyçu</a>
+											</div>
+											<!--end::Menu item-->
+										</div>
+										<!--end::User account menu-->
+										<!--end::Menu wrapper-->
+									</div>
+									<!--end::User menu-->
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
